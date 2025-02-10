@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
@@ -116,6 +117,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
       (success) {
         countries = success.data;
+        dialCode = countries
+            .firstWhere((element) => element.datumDefault == true)
+            .dialCode;
+        flagImage = countries
+            .firstWhere((element) => element.datumDefault == true)
+            .flag!;
+        dialMaxLength = countries
+            .firstWhere((element) => element.datumDefault == true)
+            .dialMaxLength; 
         emit(CountrySuccessState());
       },
     );
@@ -270,6 +280,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             }
           },
         );
+      } else {
+        RemoteNotification noti = RemoteNotification(
+            title: AppLocalizations.of(event.context)!.otpForLogin,
+            body: AppLocalizations.of(event.context)!
+                .testOtp
+                .replaceAll('***', '123456'));
+        showOtpNotification(noti);
+        if (event.isForgotPassword) {
+          emit(ForgotPasswordOTPSendState());
+        }
       }
       emit(SignInWithDemoState());
     }
@@ -398,6 +418,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               }
             },
           );
+        } else {
+          // DEMO LOGIN
+          if (event.isUserExist &&
+              event.otp == '123456' &&
+              !event.isForgotPasswordVerify) {
+            add(LoginUserEvent(
+                emailOrMobile: event.mobileOrEmail,
+                otp: event.otp,
+                password: event.password,
+                isOtpLogin: event.isOtpVerify,
+                isLoginByEmail: event.isLoginByEmail,
+                context: event.context));
+            // emit(ConfirmMobileOrEmailState());
+          } else if (!event.isUserExist &&
+              event.otp == '123456' &&
+              !event.isForgotPasswordVerify) {
+            emit(NewUserRegisterState());
+          } else if (event.isUserExist &&
+              event.otp == '123456' &&
+              event.isForgotPasswordVerify) {
+            emit(ForgotPasswordOTPVerifyState());
+          } else {
+            isLoading = false;
+            otpController.clear();
+            showToast(
+                message: AppLocalizations.of(event.context)!.enterValidOtp);
+            emit(SignInWithOTPFailureState());
+          }
         }
       }
     } else {
@@ -455,7 +503,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       RegisterUserEvent event, Emitter<AuthState> emit) async {
     emit(LoginLoadingState());
     isLoading = true;
-    // if (event.profileImage.isNotEmpty) {
     final data = await serviceLocator<AuthUsecase>().userRegister(
       userName: event.userName,
       mobileNumber: event.mobileNumber,
@@ -476,17 +523,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         isLoading = false;
         emit(LoginSuccessState());
         await AppSharedPreference.setToken(
-            // '${success.tokenType} ${success.accessToken}');
             'Bearer ${success.accessToken}');
         await AppSharedPreference.setLoginStatus(true);
       },
     );
-    // } else {
-    //   showToast(
-    //       message: AppLocalizations.of(event.context)!.selectProfileImage);
-    //   isLoading = false;
-    //   emit(LoginFailureState());
-    // }
   }
 
   Future<void> _registerInit(
@@ -547,7 +587,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     data.fold(
       (error) {
-        // showToast(message: '${error.message}');
         if (!event.isOtpLogin) {
           showToast(message: AppLocalizations.of(event.context)!.validPassword);
         } else {
@@ -562,7 +601,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         showToast(message: AppLocalizations.of(event.context)!.loginSuccess);
         debugPrint('${success.tokenType} ${success.accessToken}');
         await AppSharedPreference.setToken(
-            // '${success.tokenType} ${success.accessToken}');
             'Bearer ${success.accessToken}');
         await AppSharedPreference.setLoginStatus(true);
       },

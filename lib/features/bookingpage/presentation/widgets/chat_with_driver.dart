@@ -58,7 +58,7 @@ class ChatWithDriverWidget extends StatelessWidget {
                                         decoration: const BoxDecoration(
                                           color: AppColors.white,
                                           shape: BoxShape.circle,
-                                          boxShadow: [
+                                          boxShadow:  [
                                             BoxShadow(
                                               color: Colors.black26,
                                               offset: Offset(5.0, 5.0),
@@ -83,7 +83,8 @@ class ChatWithDriverWidget extends StatelessWidget {
                                           child: const Icon(
                                             CupertinoIcons.back,
                                             size: 20,
-                                            color: AppColors.black,
+                                            color:
+                                                AppColors.black,
                                           ),
                                         ),
                                       ),
@@ -190,8 +191,7 @@ class ChatWithDriverWidget extends StatelessWidget {
                                     controller: context
                                         .read<BookingBloc>()
                                         .chatController,
-                                    hintText: AppLocalizations.of(context)!
-                                        .typeMessage,
+                                    hintText: AppLocalizations.of(context)!.typeMessage,
                                     // maxLine: 4,
                                   ),
                                 ),
@@ -310,29 +310,21 @@ class ChatWithDriverWidget extends StatelessWidget {
                                                     .read<BookingBloc>()
                                                     .userData!
                                                     .id)
-                                            ? (Theme.of(context).brightness ==
-                                                    Brightness.dark)
-                                                ? const Color(0xffE7EDEF)
-                                                : AppColors.black
-                                            : const Color(0xffE7EDEF)),
+                                            ? (Theme.of(context).brightness==Brightness.dark)?const Color(
+                                                                  0xffE7EDEF):AppColors.black
+                                                              : const Color(
+                                                                  0xffE7EDEF)),
                                     child: MyText(
                                       text: chatList[index].message,
                                       maxLines: 5,
                                       textStyle: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
-                                          .copyWith(
-                                              color: (chatList[index].userId ==
-                                                      context
-                                                          .read<BookingBloc>()
-                                                          .userData!
-                                                          .id)
-                                                  ? (Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark)
-                                                      ? AppColors.black
-                                                      : AppColors.white
-                                                  : AppColors.black),
+                                          .copyWith(color: (chatList[index].userId ==
+                                                context
+                                                    .read<BookingBloc>()
+                                                    .userData!
+                                                    .id)?(Theme.of(context).brightness==Brightness.dark)?AppColors.black:AppColors.white:AppColors.black),
                                     ),
                                   ),
                                 ),
@@ -344,9 +336,7 @@ class ChatWithDriverWidget extends StatelessWidget {
                                   textStyle: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
-                                      .copyWith(
-                                          color:
-                                              Theme.of(context).disabledColor),
+                                      .copyWith(color: Theme.of(context).disabledColor),
                                 ),
                               ],
                             ),

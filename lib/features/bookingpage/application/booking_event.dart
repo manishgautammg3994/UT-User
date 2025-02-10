@@ -31,6 +31,7 @@ class BookingEtaRequestEvent extends BookingEvent {
   final List<AddressModel> pickupAddressList;
   final List<AddressModel> dropAddressList;
   final bool isOutstationRide;
+  final bool isWithoutDestinationRide;
   BookingEtaRequestEvent(
       {required this.picklat,
       required this.picklng,
@@ -45,7 +46,8 @@ class BookingEtaRequestEvent extends BookingEvent {
       required this.polyLine,
       required this.pickupAddressList,
       required this.dropAddressList,
-      required this.isOutstationRide});
+      required this.isOutstationRide,
+      required this.isWithoutDestinationRide});
 }
 
 class BookingRentalEtaRequestEvent extends BookingEvent {

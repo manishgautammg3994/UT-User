@@ -30,19 +30,37 @@ Widget packageList(BuildContext context, BookingPageArguments arg) {
               children: [
                 const Center(child: CustomDivider()),
                 SizedBox(height: size.width * 0.05),
-                if (context.read<BookingBloc>().userData != null &&
-                    context
-                            .read<BookingBloc>()
-                            .userData!
-                            .enableModulesForApplications ==
-                        'both')
-                  MyText(
-                    text: AppLocalizations.of(context)!.service,
-                    textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).disabledColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (context.read<BookingBloc>().userData != null &&
+                        context
+                                .read<BookingBloc>()
+                                .userData!
+                                .enableModulesForApplications ==
+                            'both')
+                      MyText(
+                        text: AppLocalizations.of(context)!.service,
+                        textStyle:
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Theme.of(context).disabledColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                      ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        children: [
+                          MyText(text: AppLocalizations.of(context)!.cancel,
+                          textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 16),),
+                          const Icon(Icons.cancel_outlined,size:20)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
                 SizedBox(height: size.width * 0.02),
                 Row(
                   children: [
@@ -235,7 +253,6 @@ Widget packageList(BuildContext context, BookingPageArguments arg) {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              // SizedBox(height: size.width * 0.01),
                                               SizedBox(
                                                 width: size.width * 0.44,
                                                 child: MyText(

@@ -18,7 +18,8 @@ class AdminChat extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return BlocProvider(
-      create: (context) => AccBloc()..add(AdminChatInitEvent(arg: arg)),
+      create: (context) => AccBloc()
+      ..add(AdminChatInitEvent(arg: arg)),
       child: BlocListener<AccBloc, AccState>(
         listener: (context, state) {
           if (state is SendAdminMessageSuccessState) {
@@ -53,7 +54,9 @@ class AdminChat extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: size.width * 0.05),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: AppColors.darkGrey, width: 1.2),
+                  border: Border.all(
+                      color: AppColors.darkGrey, 
+                       width: 1.2),
                   color: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 child: Padding(
@@ -65,7 +68,7 @@ class AdminChat extends StatelessWidget {
                         width: size.width * 0.7,
                         child: TextField(
                           controller: context.read<AccBloc>().adminchatText,
-                          decoration: InputDecoration(
+                          decoration:  InputDecoration(
                             border: InputBorder.none,
                             hintText: AppLocalizations.of(context)!.typeMessage,
                           ),
@@ -122,7 +125,7 @@ class AdminChat extends StatelessWidget {
   }
 
   Widget buildAdminChatHistoryData(
-      BuildContext context, Size size, List<ChatData> adminChatList) {
+      BuildContext context, Size size, List<ChatData> adminChatList) {  
     return adminChatList.isNotEmpty
         ? ListView.builder(
             itemCount: adminChatList.length,
@@ -193,16 +196,16 @@ class AdminChat extends StatelessWidget {
                                               size.width * 0.02),
                                         ),
                                         color: (adminChatList[index].senderId ==
-                                                context
-                                                    .read<AccBloc>()
-                                                    .userData!
-                                                    .id
-                                                    .toString())
-                                            ? (Theme.of(context).brightness ==
-                                                    Brightness.dark)
-                                                ? const Color(0xffE7EDEF)
-                                                : AppColors.black
-                                            : const Color(0xffE7EDEF)),
+                                                      context
+                                                          .read<AccBloc>()
+                                                          .userData!
+                                                          .id
+                                                          .toString())
+                                                              ? (Theme.of(context).brightness==Brightness.dark)?const Color(
+                                                                  0xffE7EDEF):AppColors.black
+                                                              : const Color(
+                                                                  0xffE7EDEF)
+                                        ),
                                     child: MyText(
                                       text: adminChatList[index].message,
                                       overflow: TextOverflow.visible,
@@ -210,20 +213,15 @@ class AdminChat extends StatelessWidget {
                                           .textTheme
                                           .bodyMedium!
                                           .copyWith(
-                                              // color: AppColors.white
-                                              color: (adminChatList[index]
-                                                          .senderId ==
+                                            // color: AppColors.white
+                                            color: (adminChatList[index].senderId ==
                                                       context
                                                           .read<AccBloc>()
                                                           .userData!
                                                           .id
                                                           .toString())
-                                                  ? (Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark)
-                                                      ? AppColors.black
-                                                      : AppColors.white
-                                                  : AppColors.black),
+                                                              ? (Theme.of(context).brightness==Brightness.dark)?AppColors.black:AppColors.white:AppColors.black
+                                            ),
                                     ),
                                   ),
                                 )
@@ -244,36 +242,31 @@ class AdminChat extends StatelessWidget {
                                               size.width * 0.024),
                                         ),
                                         color: (adminChatList[index].senderId ==
-                                                context
-                                                    .read<AccBloc>()
-                                                    .userData!
-                                                    .id
-                                                    .toString())
-                                            ? (Theme.of(context).brightness ==
-                                                    Brightness.dark)
-                                                ? const Color(0xffE7EDEF)
-                                                : AppColors.black
-                                            : const Color(0xffE7EDEF)),
-                                    child: MyText(
-                                      text: adminChatList[index].message,
-                                      overflow: TextOverflow.visible,
-                                      textStyle: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              color: (adminChatList[index]
-                                                          .senderId ==
                                                       context
                                                           .read<AccBloc>()
                                                           .userData!
                                                           .id
                                                           .toString())
-                                                  ? (Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark)
-                                                      ? AppColors.black
-                                                      : AppColors.white
-                                                  : AppColors.black),
+                                                              ? (Theme.of(context).brightness==Brightness.dark)?const Color(
+                                                                  0xffE7EDEF):AppColors.black
+                                                              : const Color(
+                                                                  0xffE7EDEF)
+                                            ),
+                                    child: MyText(
+                                      text: adminChatList[index].message,
+                                      overflow: TextOverflow.visible,                                      
+                                      textStyle: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: (adminChatList[index].senderId ==
+                                                      context
+                                                          .read<AccBloc>()
+                                                          .userData!
+                                                          .id
+                                                          .toString())
+                                                              ? (Theme.of(context).brightness==Brightness.dark)?AppColors.black:AppColors.white:AppColors.black
+                                                  ),
                                     ),
                                   ),
                                 ),
@@ -288,6 +281,7 @@ class AdminChat extends StatelessWidget {
                           ),
                         ],
                       ),
+                    
                     )
                   : const Loader();
             },

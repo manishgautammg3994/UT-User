@@ -171,12 +171,6 @@ class DeleteAccountFailureState extends AccState {
   DeleteAccountFailureState({required this.errorMessage});
 }
 
-// class HistoryTypeChangeState extends AccState {
-//   final int selectedHistoryType;
-
-//   HistoryTypeChangeState({required this.selectedHistoryType});
-// }
-
 final class FaqSuccessState extends AccState {}
 
 final class FaqFailureState extends AccState {}

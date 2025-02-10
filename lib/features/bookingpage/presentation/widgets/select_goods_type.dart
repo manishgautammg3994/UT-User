@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,7 +84,8 @@ class SelectGoodsType extends StatelessWidget {
                                     .selectedGoodsTypeId = value!;
                                 context.read<BookingBloc>().add(UpdateEvent());
                               },
-                              title: MyText(
+                              title:
+                                  MyText(
                                 text: type.goodsTypeName,
                                 maxLines: 2,
                                 textStyle:
@@ -120,34 +122,34 @@ class SelectGoodsType extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if ((!context.read<BookingBloc>().isRentalRide)
-                      ? context.read<BookingBloc>().isMultiTypeVechiles
-                          ? context
-                                  .read<BookingBloc>()
-                                  .sortedEtaDetailsList[context
-                                      .read<BookingBloc>()
-                                      .selectedVehicleIndex]
-                                  .iconType
-                                  .toLowerCase() !=
-                              'bike'
-                          : context
-                                  .read<BookingBloc>()
-                                  .etaDetailsList[context
-                                      .read<BookingBloc>()
-                                      .selectedVehicleIndex]
-                                  .iconType
-                                  .toLowerCase() !=
-                              'bike'
-                      : context
+                    ?
+                    context.read<BookingBloc>().isMultiTypeVechiles
+                      ? context
                               .read<BookingBloc>()
-                              .rentalEtaDetailsList[context
+                              .sortedEtaDetailsList[context
                                   .read<BookingBloc>()
                                   .selectedVehicleIndex]
-                              .icon
+                              .iconType
+                              .toLowerCase() !=
+                          'bike'
+                      : context
+                              .read<BookingBloc>()
+                              .etaDetailsList[context
+                                  .read<BookingBloc>()
+                                  .selectedVehicleIndex]
+                              .iconType
+                              .toLowerCase() !=
+                          'bike'
+                        : context
+                          .read<BookingBloc>()
+                          .rentalEtaDetailsList[context
+                          .read<BookingBloc>()
+                          .selectedVehicleIndex].icon
                               .toLowerCase() !=
                           'bike') ...[
-                    Row(
-                      children: [
-                        Expanded(
+                  Row(
+                    children: [
+                      Expanded(
                           child: Theme(
                             data: ThemeData(
                                 unselectedWidgetColor:
@@ -175,9 +177,9 @@ class SelectGoodsType extends StatelessWidget {
                                   textStyle:
                                       Theme.of(context).textTheme.bodyLarge),
                             ),
-                          ),
                         ),
-                        Expanded(
+                      ),
+                      Expanded(
                           child: Theme(
                             data: ThemeData(
                                 unselectedWidgetColor:
@@ -223,10 +225,10 @@ class SelectGoodsType extends StatelessWidget {
                                   )
                                 ],
                               ),
-                            ),
                           ),
-                        )
-                      ],
+                        ),
+                      )
+                    ],
                     ),
                   ],
                   SizedBox(height: size.width * 0.03),
@@ -244,9 +246,7 @@ class SelectGoodsType extends StatelessWidget {
                             .isNotEmpty) {
                           Navigator.pop(context);
                         } else {
-                          showToast(
-                              message: AppLocalizations.of(context)!
-                                  .pleaseEnterQuantity);
+                          showToast(message: AppLocalizations.of(context)!.pleaseEnterQuantity);
                         }
                       } else {
                         Navigator.pop(context);

@@ -37,6 +37,7 @@ class BookingRepositoryImpl implements BookingRepository {
     required List<AddressModel> pickupAddressList,
     required List<AddressModel> dropAddressList,
     required bool isOutstationRide,
+    required bool isWithoutDestinationRide,
   }) async {
     EtaDetailsListModel etaResposeModel;
     try {
@@ -46,23 +47,23 @@ class BookingRepositoryImpl implements BookingRepository {
           droplat: droplat,
           droplng: droplng,
           rideType: rideType,
-          transportType: transportType,
+          transportType: transportType, 
           promoCode: promoCode,
           vehicleType: vehicleType,
           distance: distance,
           duration: duration,
           polyLine: polyLine,
           pickupAddressList: pickupAddressList,
-          dropAddressList: dropAddressList,
-          isOutstationRide: isOutstationRide);
+          dropAddressList: dropAddressList,isOutstationRide:isOutstationRide,
+          isWithoutDestinationRide: isWithoutDestinationRide);
       printWrapped('ETA RESPONSE : ${response.data}');
       if (response.data == null || response.data == '') {
         return Left(GetDataFailure(message: 'User bad request'));
       } else if (response.data.toString().contains('error')) {
         return Left(GetDataFailure(
-            message: (response.data['errors']["promo_code"] != null)
-                ? response.data['errors']["promo_code"][0].toString()
-                : response.data['message']));
+            message:(response.data['errors']["promo_code"]!=null) 
+            ? response.data['errors']["promo_code"][0].toString() 
+            : response.data['message']));
       } else {
         if (response.statusCode == 400 || !response.data['success']) {
           return Left(GetDataFailure(message: response.data["message"]));
@@ -166,7 +167,7 @@ class BookingRepositoryImpl implements BookingRepository {
         isAirport: isAirport,
         isParcel: isParcel,
         packageId: packageId,
-        isOutstationRide: isOutstationRide,
+        isOutstationRide:isOutstationRide,
         isRoundTrip: isRoundTrip,
         scheduleDateTimeForReturn: scheduleDateTimeForReturn,
       );
@@ -387,31 +388,6 @@ class BookingRepositoryImpl implements BookingRepository {
                   .split('.')[0]
             });
           } else {
-            // debugPrint('legs length : ${response.data['routes'][0]['legs'].length}');
-            // List<int> distance = [];
-            // List<int> duration = [];
-            // for (var i = 0;
-            //     i < response.data['routes'][0]['legs'].length;
-            //     i++) {
-            //   distance.add(
-            //       response.data['routes'][0]['legs'][i]['distance']['value']);
-            //   duration.add(
-            //       response.data['routes'][0]['legs'][i]['duration']['value']);
-            // }
-            // int sumDistance = distance.fold(
-            //     0, (previousValue, element) => previousValue + element);
-            // int sumDuration = duration.fold(
-            //     0, (previousValue, element) => previousValue + element);
-            // debugPrint('Distance : $sumDistance meters');
-            // debugPrint('Duration : ${(sumDuration / 60).toStringAsFixed(2)} minutes');
-            // polylineModel = PolylineModel.fromJson({
-            //   'success': true,
-            //   'polyString': response.data['routes'][0]['overview_polyline']
-            //       ['points'],
-            //   'distance': sumDistance.toString(),
-            //   'duration':
-            //       (sumDuration / 60).roundToDouble().toString().split('.')[0]
-            // });
             String duration = response.data['routes'][0]['duration']
                 .toString()
                 .replaceAll('s', '');
@@ -419,12 +395,10 @@ class BookingRepositoryImpl implements BookingRepository {
               'success': true,
               'polyString': response.data['routes'][0]['polyline']
                   ['encodedPolyline'],
-              'distance':
-                  (response.data['routes'][0]['distanceMeters']).toString(),
-              'duration': (double.parse(duration) / 60)
-                  .roundToDouble()
-                  .toString()
-                  .split('.')[0]
+              'distance': (response.data['routes'][0]['distanceMeters'])
+                  .toString(),
+              'duration':
+                  (double.parse(duration) / 60).roundToDouble().toString().split('.')[0]
             });
           }
         }

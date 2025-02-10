@@ -87,7 +87,8 @@ class PickContact extends StatelessWidget {
                                   textStyle:
                                       Theme.of(context).textTheme.bodyMedium,
                                 ),
-                                subtitle: MyText(
+                                subtitle:
+                                    MyText(
                                   text: contact.number,
                                   maxLines: 1,
                                   textStyle:
@@ -132,8 +133,7 @@ class PickContact extends StatelessWidget {
                     onTap: () {
                       context.read<AccBloc>().add(AddContactEvent(
                             name: context.read<AccBloc>().selectedContact.name,
-                            number:
-                                context.read<AccBloc>().selectedContact.number,
+                            number: context.read<AccBloc>().selectedContact.number,
                           ));
                       Navigator.pop(context);
                     },

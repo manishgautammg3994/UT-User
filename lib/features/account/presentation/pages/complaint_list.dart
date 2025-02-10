@@ -52,7 +52,9 @@ class ComplaintListPage extends StatelessWidget {
                                 textStyle: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
-                                    .copyWith(fontWeight: FontWeight.bold)),
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18)),
                             SizedBox(height: size.width * 0.05),
                             (state is MakeComplaintSuccess)
                                 ? (state.complaintList != null &&
@@ -119,7 +121,10 @@ class ComplaintListPage extends StatelessWidget {
                                                                   textStyle: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .bodyMedium!),
+                                                                      .bodyMedium!
+                                                                      .copyWith(
+                                                                          fontSize:
+                                                                              16)),
                                                             ),
                                                             Icon(
                                                               Icons

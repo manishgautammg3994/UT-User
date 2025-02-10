@@ -38,7 +38,10 @@ class EditOptions extends StatelessWidget {
                     children: [
                       MyText(
                         text: header,
-                        textStyle: Theme.of(context).textTheme.bodyMedium,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(fontSize: 18),
                       ),
                     ],
                   ),
@@ -47,10 +50,8 @@ class EditOptions extends StatelessWidget {
                   ),
                   MyText(
                     text: text,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: Theme.of(context).disabledColor),
+                    textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Theme.of(context).disabledColor, fontSize: 16),
                   ),
                 ],
               ),

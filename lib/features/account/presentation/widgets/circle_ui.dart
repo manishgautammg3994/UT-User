@@ -33,8 +33,8 @@ class CircleTwo extends StatelessWidget {
               width: 300,
               height: 300,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black.withOpacity(0.03))),
+                  shape: BoxShape.circle, color: Colors.black.withOpacity(0.03)
+                  )),
         ],
       ),
     );

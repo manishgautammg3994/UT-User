@@ -70,8 +70,9 @@ class UpdatePasswordPage extends StatelessWidget {
                                         .textTheme
                                         .displayMedium!
                                         .copyWith(
-                                          color: AppColors.black,
-                                        ),
+                                            color: AppColors.black,
+                                            fontSize:
+                                                AppConstants().headerSize),
                                   ),
                                 ),
                                 SizedBox(height: size.width * 0.1),
@@ -91,8 +92,10 @@ class UpdatePasswordPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: size.width * 0.05),
                                 MyText(
-                                    text:
-                                        AppLocalizations.of(context)!.password),
+                                  text: AppLocalizations.of(context)!.password,
+                                  textStyle: TextStyle(
+                                      fontSize: AppConstants().subHeaderSize),
+                                ),
                                 SizedBox(height: size.width * 0.02),
                                 buildPasswordField(context, size),
                                 SizedBox(height: size.width * 0.02),

@@ -104,11 +104,8 @@ class OutstationAcceptOrDeclineEvent extends AccEvent {
   final String id;
   final String offeredRideFare;
 
-  OutstationAcceptOrDeclineEvent(
-      {required this.isAccept,
-      required this.driver,
-      required this.id,
-      required this.offeredRideFare});
+  OutstationAcceptOrDeclineEvent({required this.isAccept, required this.driver, required this.id, required this.offeredRideFare});
+
 }
 
 class LogoutEvent extends AccEvent {}
@@ -373,6 +370,23 @@ class WalletPageReUpdateEvent extends AccEvent {
 }
 
 class HistoryPageInitEvent extends AccEvent {}
+
+class AddHistoryMarkerEvent extends AccEvent {
+  final List? stops;
+  final String pickLat;
+  final String pickLng;
+  final String? dropLat;
+  final String? dropLng;
+  final String? polyline;
+  AddHistoryMarkerEvent(
+      {
+      this.stops,
+      required this.pickLat,
+      required this.pickLng,
+      this.dropLat,
+      this.dropLng,
+      this.polyline});
+}
 
 class WalletPageInitEvent extends AccEvent {
   final WalletPageArguments arg;

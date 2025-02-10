@@ -1,4 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:restart_tagxi/common/app_constants.dart';
 
 import '../../../../core/utils/custom_text.dart';
 
@@ -45,11 +48,12 @@ class PageOptions extends StatelessWidget {
                     children: [
                       MyText(
                         text: optionName,
-                        textStyle:
-                            Theme.of(context).textTheme.titleSmall!.copyWith(
-                                  color: Theme.of(context).disabledColor,
-                                  fontSize: 16,
-                                ),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(
+                                color: Theme.of(context).disabledColor,
+                                fontSize: AppConstants().headerSize),
                       ),
                       const SizedBox(
                         width: 10,

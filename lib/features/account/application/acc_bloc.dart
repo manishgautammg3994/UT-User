@@ -6,17 +6,20 @@ import 'package:bloc/bloc.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:restart_tagxi/common/tobitmap.dart';
 import 'package:restart_tagxi/core/utils/custom_snack_bar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../common/common.dart';
 import '../../../core/utils/functions.dart';
 import '../../../di/locator.dart';
 import '../../bookingpage/application/usecases/booking_usecase.dart';
+import '../../bookingpage/domain/models/point_latlng.dart';
 import '../../home/domain/models/contact_model.dart';
 import '../../home/application/usecase/home_usecases.dart';
 import '../../home/domain/models/stop_address_model.dart';
@@ -31,6 +34,8 @@ import '../domain/models/notifications_model.dart';
 import '../domain/models/payment_method_model.dart';
 import '../domain/models/walletpage_model.dart';
 import 'usecase/acc_usecases.dart';
+import 'package:flutter_map/flutter_map.dart' as fm;
+import 'package:latlong2/latlong.dart' as fmlt;
 
 part 'acc_event.dart';
 
@@ -48,6 +53,11 @@ class AccBloc extends Bloc<AccEvent, AccState> {
   List outstation = [];
   List outStationDriver = [];
   List<ComplaintList> complaintList = [];
+  List<Marker> markers = [];
+  Set<Polyline> polyline = {};
+  LatLngBounds? bound;
+  List<LatLng> polylist = [];
+  List<fmlt.LatLng> fmpoly = [];
 
   Map<int, List<HistoryData>> historyCache = {
     0: [], // Completed history
@@ -64,9 +74,10 @@ class AccBloc extends Bloc<AccEvent, AccState> {
   String email = '';
   String gender = '';
   String profileImage = '';
+  String darkMapString = '';
+  String lightMapString = '';
   bool isContainerClicked = false;
 
-  // List<LanguageList> languageList = [];
   List<String> genderOptions = [
     'Male',
     'Female',
@@ -130,6 +141,7 @@ class AccBloc extends Bloc<AccEvent, AccState> {
   NotificationPagination? notificationPaginations;
   List<AddressModel> selectedAddress = [];
   GoogleMapController? googleMapController;
+  final fm.MapController fmController = fm.MapController();
   LatLng currentLatLng = const LatLng(0, 0);
   String currentLocation = '';
   bool isCameraMoved = false;
@@ -137,6 +149,7 @@ class AccBloc extends Bloc<AccEvent, AccState> {
   TextEditingController searchController = TextEditingController();
   AddressModel? favNewAddress;
   String webViewUrl = '';
+  String mapType = '';
   bool loadMore = false;
   bool isArrow = true;
   bool paymentProcessComplete = false;
@@ -146,6 +159,7 @@ class AccBloc extends Bloc<AccEvent, AccState> {
   bool isFavLoading = false;
   bool isSosLoading = false;
   bool firstLoad = true;
+  // bool isDarkTheme = false;
   WebViewController? webController;
   InAppWebViewController? inAppWebViewController;
   int? selectedAmount;
@@ -180,6 +194,7 @@ class AccBloc extends Bloc<AccEvent, AccState> {
     on<HistoryPageInitEvent>(historyInitEvent);
     on<HistoryGetEvent>(_getHistoryList);
     on<HistoryTypeChangeEvent>(_historyTypeChange);
+    on<AddHistoryMarkerEvent>(addHistoryMarker);
 
     //Outstation
     on<OutstationGetEvent>(_getOutstationList);
@@ -241,7 +256,10 @@ class AccBloc extends Bloc<AccEvent, AccState> {
   Future<void> getDirection(AccEvent event, Emitter<AccState> emit) async {
     emit(AccDataLoadingStartState());
     textDirection = await AppSharedPreference.getLanguageDirection();
-    final mapType = await AppSharedPreference.getMapType();
+    mapType = await AppSharedPreference.getMapType();
+    // isDarkTheme = await AppSharedPreference.getDarkThemeStatus();
+    lightMapString = await rootBundle.loadString('assets/light.json');
+    darkMapString = await rootBundle.loadString('assets/dark.json');
     if (mapType == 'google_map') {
       choosenMapIndex = 0;
     } else {
@@ -527,6 +545,97 @@ class AccBloc extends Bloc<AccEvent, AccState> {
     emit(UpdateState());
     add(HistoryGetEvent(historyFilter: filter));
     // emit(HistoryTypeChangeState(selectedHistoryType: selectedHistoryType));
+  }
+
+  FutureOr<void> addHistoryMarker(
+      AddHistoryMarkerEvent event, Emitter<AccState> emit) async {
+    mapType = await AppSharedPreference.getMapType();
+    if (mapType == 'google_map') {
+      markers.clear();
+      markers.add(Marker(
+        markerId: const MarkerId("pick"),
+        position:
+            LatLng(double.parse(event.pickLat), double.parse(event.pickLng)),
+        icon: await Image.asset(
+          AppImages.pickPin,
+          height: 30,
+          fit: BoxFit.contain,
+        ).toBitmapDescriptor(
+            logicalSize: const Size(20, 20), imageSize: const Size(200, 200)),
+      ));
+      if (event.stops!.isEmpty && event.dropLat != '') {
+        markers.add(Marker(
+          markerId: const MarkerId("drop"),
+          position: LatLng(
+              double.parse(event.dropLat!), double.parse(event.dropLng!)),
+          icon: await Image.asset(
+            AppImages.dropPin,
+            height: 30,
+            fit: BoxFit.contain,
+          ).toBitmapDescriptor(
+              logicalSize: const Size(20, 20), imageSize: const Size(200, 200)),
+        ));
+      } else if (event.stops != null) {
+        for (var i = 0; i < event.stops!.length; i++) {
+          markers.add(Marker(
+            markerId: MarkerId("drop$i"),
+            position: LatLng(
+                event.stops![i]['latitude'], event.stops![i]['longitude']),
+            icon: await Image.asset(
+              AppImages.dropPin,
+              height: 30,
+              fit: BoxFit.contain,
+            ).toBitmapDescriptor(
+                logicalSize: const Size(20, 20),
+                imageSize: const Size(200, 200)),
+          ));
+        }
+      }
+    }
+    if (mapType == 'google_map') {
+      if (event.dropLat != null) {
+        mapBound(
+            double.parse(event.pickLat),
+            double.parse(event.pickLng),
+            double.parse(event.dropLat!),
+            double.parse(event.dropLng!),
+            mapType);
+      } else {
+        googleMapController
+            ?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+                target: LatLng(
+                  double.parse(event.pickLat),
+                  double.parse(event.pickLng),
+                ),
+                zoom: 15)));
+      }
+
+      if (event.polyline != '') {
+        await decodeEncodedPolyline(event.polyline!, mapType);
+      }
+    } else {
+      if (event.polyline != '') {
+        await decodeEncodedPolyline(event.polyline!, mapType);
+      }
+      if (event.dropLat != null) {
+        fmController.fitCamera(fm.CameraFit.coordinates(coordinates: [
+          fmlt.LatLng(double.parse(event.pickLat), double.parse(event.pickLng)),
+          fmlt.LatLng(
+              double.parse(event.dropLat!), double.parse(event.dropLng!))
+        ]));
+        fmController.move(
+            fmlt.LatLng(
+                double.parse(event.pickLat), double.parse(event.pickLng)),
+            10);
+      } else {
+        fmController.move(
+            fmlt.LatLng(
+                double.parse(event.pickLat), double.parse(event.pickLng)),
+            10);
+      }
+    }
+
+    emit(UpdateState());
   }
 
   //Clear notification
@@ -1163,9 +1272,6 @@ class AccBloc extends Bloc<AccEvent, AccState> {
   Future<void> userDataInit(
       UserDataInitEvent event, Emitter<AccState> emit) async {
     userData = event.userDetails;
-    // sosdata = userData!.sos.data;
-    // favAddressList = userData!.favouriteLocations.data;
-    // add(GetFavListEvent(userData: userData!, favAddressList: favAddressList));
     emit(UpdateState());
   }
 
@@ -1257,5 +1363,74 @@ class AccBloc extends Bloc<AccEvent, AccState> {
       add(CardListEvent());
       emit(AccDataLoadingStopState());
     });
+  }
+
+  Future<List<PointLatLng>> decodeEncodedPolyline(
+      String encoded, String mapType) async {
+    polylist.clear();
+    List<PointLatLng> poly = [];
+    int index = 0, len = encoded.length;
+    int lat = 0, lng = 0;
+    polyline.clear();
+
+    while (index < len) {
+      int b, shift = 0, result = 0;
+      do {
+        b = encoded.codeUnitAt(index++) - 63;
+        result |= (b & 0x1f) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+      lat += dlat;
+
+      shift = 0;
+      result = 0;
+      do {
+        b = encoded.codeUnitAt(index++) - 63;
+        result |= (b & 0x1f) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+      lng += dlng;
+      LatLng p = LatLng((lat / 1E5).toDouble(), (lng / 1E5).toDouble());
+      if (mapType == 'google_map') {
+        polylist.add(p);
+      } else {
+        fmpoly.add(fmlt.LatLng(p.latitude, p.longitude));
+      }
+    }
+    if (mapType == 'google_map') {
+      polyline.add(
+        Polyline(
+            polylineId: const PolylineId('1'),
+            color: AppColors.primary,
+            visible: true,
+            width: 4,
+            points: polylist),
+      );
+    }
+    return poly;
+  }
+
+  mapBound(pickLat, pickLng, dropLat, dropLng, mapType) {
+    dynamic pick = LatLng(pickLat, pickLng);
+    dynamic drop = LatLng(dropLat, dropLng);
+    if (pick.latitude > drop.latitude && pick.longitude > drop.longitude) {
+      bound = LatLngBounds(southwest: drop, northeast: pick);
+    } else if (pick.longitude > drop.longitude) {
+      bound = LatLngBounds(
+          southwest: LatLng(pick.latitude, drop.longitude),
+          northeast: LatLng(drop.latitude, pick.longitude));
+    } else if (pick.latitude > drop.latitude) {
+      bound = LatLngBounds(
+          southwest: LatLng(drop.latitude, pick.longitude),
+          northeast: LatLng(pick.latitude, drop.longitude));
+    } else {
+      bound = LatLngBounds(southwest: pick, northeast: drop);
+    }
+    if (mapType == 'google_map') {
+      googleMapController
+          ?.animateCamera(CameraUpdate.newLatLngBounds(bound!, 50));
+    }
   }
 }

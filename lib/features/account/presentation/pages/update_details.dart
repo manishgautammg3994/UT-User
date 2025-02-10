@@ -51,8 +51,7 @@ class UpdateDetails extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             FocusManager.instance.primaryFocus?.unfocus();
-                            Future.delayed(const Duration(milliseconds: 150),
-                                () {
+                            Future.delayed(const Duration(milliseconds: 150), () {
                               if (!context.mounted) return;
                               Navigator.pop(context);
                             });
@@ -61,9 +60,7 @@ class UpdateDetails extends StatelessWidget {
                               color: Theme.of(context).primaryColorDark),
                         ),
                         MyText(
-                          text: AppLocalizations.of(context)!
-                              .updateText
-                              .replaceAll('***', arg.header),
+                          text: AppLocalizations.of(context)!.updateText.replaceAll('***', arg.header),
                           textStyle: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -85,9 +82,7 @@ class UpdateDetails extends StatelessWidget {
                                 .copyWith(fontWeight: FontWeight.w400),
                           ),
                           MyText(
-                            text: AppLocalizations.of(context)!
-                                .youCanEdit
-                                .replaceAll('***', arg.header),
+                            text: AppLocalizations.of(context)!.youCanEdit.replaceAll('***', arg.header),
                             textStyle: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -109,7 +104,7 @@ class UpdateDetails extends StatelessWidget {
                                   dropdownColor:
                                       Theme.of(context).scaffoldBackgroundColor,
                                   isExpanded: true,
-                                  decoration: InputDecoration(
+                                  decoration:  InputDecoration(
                                     fillColor: Theme.of(context)
                                         .scaffoldBackgroundColor,
                                     filled: true,
@@ -124,7 +119,8 @@ class UpdateDetails extends StatelessWidget {
                                     contentPadding: const EdgeInsets.symmetric(
                                         vertical: 20, horizontal: 20),
                                   ),
-                                  items: showGenderList.map((gender) {
+                                  items: showGenderList
+                                      .map((gender) {
                                     return DropdownMenuItem<String>(
                                       value: gender,
                                       child: Text(gender),
@@ -149,13 +145,14 @@ class UpdateDetails extends StatelessWidget {
                               AppLocalizations.of(context)!.gender)
                             CustomTextField(
                               controller:
-                                  context.read<AccBloc>().updateController,
+                                  context.read<AccBloc>()
+                                  .updateController,
                               hintText: arg.header,
                               enabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide.none),
                               focusedBorder: const OutlineInputBorder(
                                   borderSide: BorderSide.none),
-                              autofocus: true,
+                                  autofocus: true,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -188,7 +185,8 @@ class UpdateDetails extends StatelessWidget {
                                   : context.read<AccBloc>().userData!.email,
                               gender: arg.header ==
                                       AppLocalizations.of(context)!.gender
-                                  ? context.read<AccBloc>().selectedGender
+                                  ? context.read<AccBloc>()
+                                      .selectedGender
                                   : context.read<AccBloc>().userData!.gender,
                               profileImage:
                                   context.read<AccBloc>().profileImage.isEmpty

@@ -23,7 +23,7 @@ class SelectCancelReasonList extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: 16,
                   right: 16,
-                  bottom: MediaQuery.viewInsetsOf(context).bottom),
+                  bottom:  MediaQuery.viewInsetsOf(context).bottom),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,8 +41,7 @@ class SelectCancelReasonList extends StatelessWidget {
                           color: Theme.of(context).primaryColorDark,
                         ),
                         onTap: () {
-                          context.read<BookingBloc>().cancelReasonClicked =
-                              false;
+                          context.read<BookingBloc>().cancelReasonClicked = false;
                           context.read<BookingBloc>().add(UpdateEvent());
                           Navigator.pop(context);
                         },
@@ -51,15 +50,12 @@ class SelectCancelReasonList extends StatelessWidget {
                     SizedBox(height: size.width * 0.1),
                     SizedBox(
                         width: size.width * 0.83,
-                        child: MyText(
-                            text: AppLocalizations.of(context)!
-                                .selectCancelReason)),
+                        child:  MyText(
+                            text: AppLocalizations.of(context)!.selectCancelReason)),
                     SizedBox(height: size.width * 0.05),
                     ListView.builder(
-                        itemCount: context
-                            .read<BookingBloc>()
-                            .cancelReasonsList
-                            .length,
+                        itemCount:
+                            context.read<BookingBloc>().cancelReasonsList.length,
                         shrinkWrap: true,
                         physics: const AlwaysScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
@@ -86,8 +82,7 @@ class SelectCancelReasonList extends StatelessWidget {
                                 value: reason.reason,
                                 contentPadding: EdgeInsets.zero,
                                 dense: true,
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
+                                controlAffinity: ListTileControlAffinity.leading,
                                 activeColor: Theme.of(context).primaryColorDark,
                                 groupValue: context
                                     .read<BookingBloc>()
@@ -96,9 +91,7 @@ class SelectCancelReasonList extends StatelessWidget {
                                   context
                                       .read<BookingBloc>()
                                       .selectedCancelReason = value!;
-                                  context
-                                      .read<BookingBloc>()
-                                      .add(UpdateEvent());
+                                  context.read<BookingBloc>().add(UpdateEvent());
                                 },
                                 title: MyText(
                                   text: reason.reason,
@@ -110,12 +103,13 @@ class SelectCancelReasonList extends StatelessWidget {
                             ),
                           );
                         }),
-                    if (context
+                    if(context
                         .read<BookingBloc>()
                         .cancelReasonsList
-                        .isNotEmpty)
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
+                        .isNotEmpty
+                    )
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
@@ -123,43 +117,41 @@ class SelectCancelReasonList extends StatelessWidget {
                                   .dividerColor
                                   .withOpacity(0.5)),
                         ),
-                        child: Theme(
-                          data: ThemeData(
-                            unselectedWidgetColor:
-                                Theme.of(context).primaryColorDark,
-                          ),
-                          child: RadioListTile(
-                            value: 'Others',
-                            contentPadding: EdgeInsets.zero,
-                            dense: true,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            activeColor: Theme.of(context).primaryColorDark,
-                            groupValue: context
-                                .read<BookingBloc>()
-                                .selectedCancelReason,
-                            onChanged: (value) {
-                              context.read<BookingBloc>().selectedCancelReason =
-                                  value!;
-                              context.read<BookingBloc>().add(UpdateEvent());
-                            },
-                            title: MyText(
-                              text: AppLocalizations.of(context)!.others,
-                              maxLines: 2,
-                              textStyle: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ),
-                        ),
-                      ),
-                    if (context.read<BookingBloc>().selectedCancelReason ==
-                        'Others') ...[
-                      CustomTextField(
-                        controller:
-                            context.read<BookingBloc>().otherReasonController,
-                        maxLine: 5,
-                        filled: true,
-                        hintText: AppLocalizations.of(context)!.otherReason,
-                      ),
-                    ],
+                      child: Theme(
+                                data: ThemeData(
+                                  unselectedWidgetColor:
+                                      Theme.of(context).primaryColorDark,
+                                ),
+                                child: RadioListTile(
+                                  value: 'Others',
+                                  contentPadding: EdgeInsets.zero,
+                                  dense: true,
+                                  controlAffinity: ListTileControlAffinity.leading,
+                                  activeColor: Theme.of(context).primaryColorDark,
+                                  groupValue: context
+                                      .read<BookingBloc>()
+                                      .selectedCancelReason,
+                                  onChanged: (value) {
+                                    context
+                                        .read<BookingBloc>()
+                                        .selectedCancelReason = value!;
+                                    context.read<BookingBloc>().add(UpdateEvent());
+                                  },
+                                  title: MyText(
+                                    text: AppLocalizations.of(context)!.others,
+                                    maxLines: 2,
+                                    textStyle:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ),
+                              ),
+                    ),
+                    if(context.read<BookingBloc>().selectedCancelReason == 'Others')...[                  
+                    CustomTextField(controller: context.read<BookingBloc>().otherReasonController,
+                    maxLine: 5,
+                    filled: true,
+                    hintText: AppLocalizations.of(context)!.otherReason,
+                    ),],        
                     SizedBox(height: size.width * 0.05),
                     Center(
                       child: CustomButton(
@@ -172,22 +164,18 @@ class SelectCancelReasonList extends StatelessWidget {
                               : Theme.of(context).primaryColorLight,
                           onTap: () {
                             if ((context
-                                        .read<BookingBloc>()
-                                        .selectedCancelReason
-                                        .isNotEmpty &&
-                                    context
+                                .read<BookingBloc>()
+                                .selectedCancelReason
+                                .isNotEmpty && context
                                             .read<BookingBloc>()
                                             .selectedCancelReason !=
-                                        'Others') ||
-                                ((context
-                                            .read<BookingBloc>()
-                                            .selectedCancelReason ==
-                                        'Others') &&
-                                    context
+                                        'Others') || ((context
+                                        .read<BookingBloc>()
+                                        .selectedCancelReason ==
+                                    'Others') && context
                                         .read<BookingBloc>()
                                         .otherReasonController
-                                        .text
-                                        .isNotEmpty)) {
+                                        .text.isNotEmpty)) {
                               Navigator.pop(context);
                               context.read<BookingBloc>().add(
                                     BookingCancelRequestEvent(
@@ -195,21 +183,14 @@ class SelectCancelReasonList extends StatelessWidget {
                                             .read<BookingBloc>()
                                             .requestData!
                                             .id,
-                                        reason: (context
-                                                    .read<BookingBloc>()
-                                                    .selectedCancelReason ==
-                                                'Others')
-                                            ? context
-                                                .read<BookingBloc>()
-                                                .otherReasonController
-                                                .text
+                                        reason:(context.read<BookingBloc>().selectedCancelReason == 'Others') ?  context.read<BookingBloc>().otherReasonController.text
                                             : context
-                                                .read<BookingBloc>()
-                                                .selectedCancelReason),
+                                            .read<BookingBloc>()
+                                            .selectedCancelReason),
                                   );
                               context.read<BookingBloc>().add(
                                   TripRideCancelEvent(isCancelByDriver: false));
-                            }
+                }
                           }),
                     )
                   ],

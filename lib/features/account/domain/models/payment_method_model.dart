@@ -19,8 +19,8 @@ class PaymentAuthModel {
 
   factory PaymentAuthModel.fromJson(Map<String, dynamic> json) =>
       PaymentAuthModel(
-        success: json["success"] ?? false,
-        message: json["message"] ?? '',
+        success: json["success"]??false,
+        message: json["message"]??'',
         data: PaymentAuthData.fromJson(json["data"]),
       );
 
@@ -42,11 +42,10 @@ class PaymentAuthData {
     required this.testEnvironment,
   });
 
-  factory PaymentAuthData.fromJson(Map<String, dynamic> json) =>
-      PaymentAuthData(
-        clientSecret: json["client_secret"] ?? '',
-        customerId: json["customer_id"] ?? '',
-        testEnvironment: json["test_environment"] ?? false,
+  factory PaymentAuthData.fromJson(Map<String, dynamic> json) => PaymentAuthData(
+        clientSecret: json["client_secret"]??'',
+        customerId: json["customer_id"]??'',
+        testEnvironment: json["test_environment"]??false,
       );
 
   Map<String, dynamic> toJson() => {

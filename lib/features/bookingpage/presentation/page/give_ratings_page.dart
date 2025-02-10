@@ -66,13 +66,11 @@ class RatingsPage extends StatelessWidget {
                                     child: Text(""),
                                   ),
                                 ),
-                              ),
+                              ), 
                       ),
                       SizedBox(height: size.width * 0.05),
                       MyText(
-                        text: AppLocalizations.of(context)!
-                            .lastRideReview
-                            .replaceAll('*', arg.driverData.name),
+                        text: AppLocalizations.of(context)!.lastRideReview.replaceAll('*', arg.driverData.name),
                         textStyle: Theme.of(context).textTheme.bodyMedium,
                       ),
                       SizedBox(height: size.width * 0.05),
@@ -110,8 +108,7 @@ class RatingsPage extends StatelessWidget {
                           controller:
                               context.read<BookingBloc>().feedBackController,
                           filled: true,
-                          hintText:
-                              '${AppLocalizations.of(context)!.leaveFeedback}(${AppLocalizations.of(context)!.optional})',
+                          hintText: '${AppLocalizations.of(context)!.leaveFeedback}(${AppLocalizations.of(context)!.optional})',
                           maxLine: 5,
                         ),
                       ),
@@ -139,9 +136,7 @@ class RatingsPage extends StatelessWidget {
                                               .text),
                                     );
                               } else {
-                                showToast(
-                                    message: AppLocalizations.of(context)!
-                                        .pleaseGiveRatings);
+                                showToast(message: AppLocalizations.of(context)!.pleaseGiveRatings);
                               }
                             },
                           ),

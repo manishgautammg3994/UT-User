@@ -110,24 +110,25 @@ Widget choosePaymentMethod(BuildContext context, Size size) {
                             ),
                           ],
                         ),
-                        subtitle:
-                            (context.read<BookingBloc>().paymentList[index] ==
-                                    'wallet')
-                                ? Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: size.width * 0.1),
-                                    child: MyText(
-                                      text:
-                                          '${context.read<BookingBloc>().userData!.wallet.data.currencySymbol} ${context.read<BookingBloc>().userData!.wallet.data.amountBalance}',
-                                      textStyle: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .primaryColorDark),
-                                    ),
-                                  )
-                                : null,
+                        subtitle: (context
+                                    .read<BookingBloc>()
+                                    .paymentList[index] ==
+                                'wallet')
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.1),
+                                child: MyText(
+                                  text:
+                                      '${context.read<BookingBloc>().userData!.wallet.data.currencySymbol} ${context.read<BookingBloc>().userData!.wallet.data.amountBalance}',
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          color:
+                                              Theme.of(context).primaryColorDark),
+                                ),
+                              )
+                            : null,
                       ),
                     );
                   }),

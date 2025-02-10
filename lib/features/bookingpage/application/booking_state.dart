@@ -41,6 +41,7 @@ final class BookingLaterCreateRequestSuccessState extends BookingState {
   final bool isOutstation;
 
   BookingLaterCreateRequestSuccessState({required this.isOutstation});
+
 }
 
 final class BookingCreateRequestFailureState extends BookingState {}

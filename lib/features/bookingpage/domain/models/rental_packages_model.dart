@@ -70,7 +70,7 @@ class RentalPackagesData {
         minPrice: json["min_price"] ?? 0,
         typesWithPrice: json["typesWithPrice"] != null
             ? TypesWithPrice.fromJson(json["typesWithPrice"])
-            : null,
+            :null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -83,9 +83,7 @@ class RentalPackagesData {
         "currency_name": currencyName,
         "max_price": maxPrice,
         "min_price": minPrice,
-        "typesWithPrice": (typesWithPrice != null)
-            ? typesWithPrice?.toJson()
-            : typesWithPrice,
+        "typesWithPrice":(typesWithPrice!= null)? typesWithPrice?.toJson() : typesWithPrice,
       };
 }
 

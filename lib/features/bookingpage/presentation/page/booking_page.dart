@@ -56,6 +56,7 @@ class BookingPage extends StatefulWidget {
 
 class _BookingPageState extends State<BookingPage>
     with TickerProviderStateMixin, WidgetsBindingObserver {
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -85,6 +86,8 @@ class _BookingPageState extends State<BookingPage>
       BookingBloc().etaDurationStream = null;
     }
     BookingBloc().add(BookingNavigatorPopEvent());
+    // //Animate
+    // _animationController.dispose();
     super.dispose();
   }
 
@@ -520,6 +523,15 @@ class _BookingPageState extends State<BookingPage>
                         height: size.height,
                         width: size.width,
                         child: GoogleMap(
+                          padding: EdgeInsets.fromLTRB(
+                              size.width * 0.05,
+                              (context.read<BookingBloc>().requestData != null)
+                                  ? size.width * 0.10 +
+                                      MediaQuery.of(context).padding.top
+                                  : size.width * 0.05 +
+                                      MediaQuery.of(context).padding.top,
+                              size.width * 0.05,
+                              size.width * 0.8),
                           gestureRecognizers: {
                             Factory<OneSequenceGestureRecognizer>(
                               () => EagerGestureRecognizer(),
@@ -547,7 +559,9 @@ class _BookingPageState extends State<BookingPage>
                                       .isNormalRideSearching ||
                                   context
                                       .read<BookingBloc>()
-                                      .isBiddingRideSearching)
+                                      .isBiddingRideSearching ||
+                                  (context.read<BookingBloc>().requestData !=
+                                      null))
                               ? false
                               : true,
                           myLocationButtonEnabled: false,
@@ -610,6 +624,7 @@ class _BookingPageState extends State<BookingPage>
                         ),
                     ],
                   )
+
                 // OPEN STREET
                 : Stack(
                     alignment: Alignment.center,
@@ -624,7 +639,6 @@ class _BookingPageState extends State<BookingPage>
                             onTap: (tapPosition, latLng) {},
                             onMapEvent: (v) async {},
                             onPositionChanged: (p, l) async {},
-                            // interactiveFlags: ~fm.InteractiveFlag.doubleTapZoom,
                             initialCenter: fmlt.LatLng(
                                 AppConstants.currentLocations.latitude,
                                 AppConstants.currentLocations.longitude),
@@ -632,11 +646,12 @@ class _BookingPageState extends State<BookingPage>
                             minZoom: 5,
                             maxZoom: 20,
                           ),
-                          children: [
+                          children: [                            
                             fm.TileLayer(
-                              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                              urlTemplate:
+                                  'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                               userAgentPackageName: 'com.example.app',
-                            ),                            
+                            ),
                             if (!context
                                     .read<BookingBloc>()
                                     .isNormalRideSearching &&
@@ -712,7 +727,8 @@ class _BookingPageState extends State<BookingPage>
                                                                                     : marker.markerId.value.toString().contains('premium')
                                                                                         ? AppImages.premium
                                                                                         : marker.markerId.value.toString().contains('suv')
-                                                                                            ? AppImages.suv                                                                                                                                                  : (marker.markerId.value.toString().contains('car'))
+                                                                                            ? AppImages.suv
+                                                                                            : (marker.markerId.value.toString().contains('car'))
                                                                                                 ? AppImages.car
                                                                                                 : '',
                                         width: 16,
@@ -770,17 +786,25 @@ class _BookingPageState extends State<BookingPage>
                   padding: EdgeInsets.all(size.width * 0.05),
                   child: Row(
                     children: [
-                      NavigationIconWidget(
-                        onTap: () {
-                          context
-                              .read<BookingBloc>()
-                              .add(BookingNavigatorPopEvent());
-                        },
-                        icon: Icon(Icons.arrow_back_ios_new_rounded,
-                            size: 20,
-                            color: Theme.of(context).primaryColorDark),
-                        isShadowWidget: true,
-                      ),
+                      if ((widget.arg.isRentalRide != null &&
+                              widget.arg.isRentalRide! &&
+                              context
+                                  .read<BookingBloc>()
+                                  .rentalEtaDetailsList
+                                  .isNotEmpty) ||
+                          widget.arg.isRentalRide == null ||
+                          !widget.arg.isRentalRide!)
+                        NavigationIconWidget(
+                          onTap: () {
+                            context
+                                .read<BookingBloc>()
+                                .add(BookingNavigatorPopEvent());
+                          },
+                          icon: Icon(Icons.arrow_back_ios_new_rounded,
+                              size: 20,
+                              color: Theme.of(context).primaryColorDark),
+                          isShadowWidget: true,
+                        ),
                     ],
                   ),
                 ),
@@ -1402,7 +1426,10 @@ class _BookingPageState extends State<BookingPage>
                                               .read<BookingBloc>()
                                               .dropAddressList,
                                           isOutstationRide:
-                                              widget.arg.isOutstationRide));
+                                              widget.arg.isOutstationRide,
+                                          isWithoutDestinationRide: widget.arg
+                                                  .isWithoutDestinationRide ??
+                                              false));
                                   context
                                       .read<BookingBloc>()
                                       .add(UpdateEvent());
@@ -1462,7 +1489,10 @@ class _BookingPageState extends State<BookingPage>
                                               .read<BookingBloc>()
                                               .dropAddressList,
                                           isOutstationRide:
-                                              widget.arg.isOutstationRide));
+                                              widget.arg.isOutstationRide,
+                                          isWithoutDestinationRide: widget.arg
+                                                  .isWithoutDestinationRide ??
+                                              false));
                                   context
                                       .read<BookingBloc>()
                                       .add(UpdateEvent());
@@ -2116,60 +2146,62 @@ class _BookingPageState extends State<BookingPage>
                                     ),
                                   ),
                                   SizedBox(width: size.width * 0.01),
-                                  InkWell(
-                                    onTap: () {
-                                      if (context
-                                                  .read<BookingBloc>()
-                                                  .transportType ==
-                                              'delivery' &&
-                                          widget.arg.title ==
-                                              'Receive Parcel') {
+                                  if (widget.arg.stopAddressList.length == 1)
+                                    InkWell(
+                                      onTap: () {
+                                        if (context
+                                                    .read<BookingBloc>()
+                                                    .transportType ==
+                                                'delivery' &&
+                                            widget.arg.title ==
+                                                'Receive Parcel') {
+                                          context
+                                              .read<BookingBloc>()
+                                              .showPaymentChange = true;
+                                        } else {
+                                          context
+                                              .read<BookingBloc>()
+                                              .showPaymentChange = false;
+                                          context
+                                              .read<BookingBloc>()
+                                              .selectedPaymentType = 'cash';
+                                        }
+                                        context.read<BookingBloc>().payAtDrop =
+                                            true;
                                         context
                                             .read<BookingBloc>()
-                                            .showPaymentChange = true;
-                                      } else {
-                                        context
-                                            .read<BookingBloc>()
-                                            .showPaymentChange = false;
-                                        context
-                                            .read<BookingBloc>()
-                                            .selectedPaymentType = 'cash';
-                                      }
-                                      context.read<BookingBloc>().payAtDrop =
-                                          true;
-                                      context
-                                          .read<BookingBloc>()
-                                          .add(UpdateEvent());
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          left: 5, right: 5),
-                                      decoration: BoxDecoration(
-                                          color: (context
-                                                  .read<BookingBloc>()
-                                                  .payAtDrop)
-                                              ? Theme.of(context)
-                                                  .dividerColor
-                                                  .withOpacity(0.5)
-                                              : null,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(30))),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(3),
-                                        child: MyText(
-                                          text: AppLocalizations.of(context)!
-                                              .receiver,
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Theme.of(context)
-                                                      .primaryColorDark),
+                                            .add(UpdateEvent());
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 5, right: 5),
+                                        decoration: BoxDecoration(
+                                            color: (context
+                                                    .read<BookingBloc>()
+                                                    .payAtDrop)
+                                                ? Theme.of(context)
+                                                    .dividerColor
+                                                    .withOpacity(0.5)
+                                                : null,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(30))),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(3),
+                                          child: MyText(
+                                            text: AppLocalizations.of(context)!
+                                                .receiver,
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .primaryColorDark),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
                                 ],
                               )
                             ],

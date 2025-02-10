@@ -58,12 +58,10 @@ class NotificationPagination {
     required this.pagination,
   });
 
-  factory NotificationPagination.fromJson(Map<String, dynamic> json) =>
-      NotificationPagination(
-          // pagination: Pagination.fromJson(json["pagination"]),
-          pagination: (json["pagination"] != null)
-              ? Pagination.fromJson(json["pagination"])
-              : null);
+  factory NotificationPagination.fromJson(Map<String, dynamic> json) => NotificationPagination(
+        // pagination: Pagination.fromJson(json["pagination"]),
+        pagination: (json["pagination"] !=null)? Pagination.fromJson(json["pagination"]):null
+      );
 }
 
 class Pagination {
@@ -84,12 +82,12 @@ class Pagination {
   });
 
   factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
-        total: json["total"] ?? 0,
-        count: json["count"] ?? 0,
-        perPage: json["per_page"] ?? 0,
-        currentPage: json["current_page"] ?? 0,
-        totalPages: json["total_pages"] ?? 0,
-        links: (json["links"] != null) ? Links.fromJson(json["links"]) : null,
+        total: json["total"]??0,
+        count: json["count"]??0,
+        perPage: json["per_page"]??0,
+        currentPage: json["current_page"]??0,
+        totalPages: json["total_pages"]??0,
+        links: (json["links"]!=null)?Links.fromJson(json["links"]):null,
       );
 }
 

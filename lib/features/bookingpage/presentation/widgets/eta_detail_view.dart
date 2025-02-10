@@ -106,17 +106,17 @@ class EtaDetailsWidget extends StatelessWidget {
               if (!context.read<BookingBloc>().isRentalRide) ...[
                 MyText(
                   text: AppLocalizations.of(context)!.rideFare,
-                  textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context).primaryColorDark,
-                      fontWeight: FontWeight.w600),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Theme.of(context).primaryColorDark,fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: size.width * 0.01),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText(
-                      text:
-                          '${AppLocalizations.of(context)!.base} ${AppLocalizations.of(context)!.distancePrice}',
+                      text: '${AppLocalizations.of(context)!.baseDistancePrice} ',
                       textStyle: Theme.of(context).textTheme.bodySmall,
                     ),
                     MyText(
@@ -222,34 +222,35 @@ class EtaDetailsWidget extends StatelessWidget {
                     )
                   ],
                 ),
+              
+              SizedBox(height: size.width * 0.01),
+              Divider(color: Theme.of(context).dividerColor),
                 SizedBox(height: size.width * 0.01),
-                Divider(color: Theme.of(context).dividerColor),
-                SizedBox(height: size.width * 0.01),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: size.width * 0.015,
-                      width: size.width * 0.015,
-                      margin: const EdgeInsets.only(top: 7),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).primaryColorDark),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: size.width * 0.015,
+                    width: size.width * 0.015,
+                    margin: const EdgeInsets.only(top: 7),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).primaryColorDark),
+                  ),
+                  SizedBox(width: size.width * 0.01),
+                  Flexible(
+                    child: MyText(
+                      text: AppLocalizations.of(context)!
+                          .infoWaitingPrice
+                          .replaceAll('***',
+                              '${etaInfo.currency} ${etaInfo.pricePerTime}')
+                          .replaceAll('*', '3'),
+                     textStyle: Theme.of(context).textTheme.bodySmall,
+                      maxLines: 2,
                     ),
-                    SizedBox(width: size.width * 0.01),
-                    Flexible(
-                      child: MyText(
-                        text: AppLocalizations.of(context)!
-                            .infoWaitingPrice
-                            .replaceAll('***',
-                                '${etaInfo.currency} ${etaInfo.pricePerTime}')
-                            .replaceAll('*', '3'),
-                        textStyle: Theme.of(context).textTheme.bodySmall,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
+                  ),
+                ],
                 ),
               ],
               SizedBox(height: size.width * 0.03),

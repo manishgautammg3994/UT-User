@@ -23,7 +23,8 @@ class SosPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return BlocProvider(
-      create: (context) => AccBloc()..add(SosInitEvent(arg: arg)),
+      create: (context) => AccBloc()
+        ..add(SosInitEvent(arg: arg)),
       child: BlocListener<AccBloc, AccState>(
         listener: (context, state) {
           if (state is AccDataLoadingStartState) {
@@ -60,9 +61,7 @@ class SosPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: size.width * 0.10,
-                      ),
+                      SizedBox(height: size.width *0.10,),
                       if (context.read<AccBloc>().isSosLoading)
                         ListView.builder(
                           itemCount: 6,
@@ -150,8 +149,8 @@ class SosPage extends StatelessWidget {
                                         .bodyMedium!
                                         .copyWith(
                                             fontWeight: FontWeight.w600,
-                                            color: Theme.of(context)
-                                                .primaryColorDark),
+                                            color:
+                                                Theme.of(context).primaryColorDark),
                                     maxLines: 2,
                                   ),
                                   MyText(
@@ -180,14 +179,11 @@ class SosPage extends StatelessWidget {
                                         value:
                                             BlocProvider.of<AccBloc>(context),
                                         child: CustomDoubleButtonDialoge(
-                                          title: AppLocalizations.of(context)!
-                                              .deleteSos,
-                                          content: AppLocalizations.of(context)!
-                                              .deleteContact,
-                                          yesBtnName:
-                                              AppLocalizations.of(context)!.yes,
-                                          noBtnName:
-                                              AppLocalizations.of(context)!.no,
+                                          title: AppLocalizations.of(context)!.deleteSos,
+                                          content:
+                                              AppLocalizations.of(context)!.deleteContact,
+                                          yesBtnName: AppLocalizations.of(context)!.yes,
+                                          noBtnName: AppLocalizations.of(context)!.no,
                                           yesBtnFunc: () {
                                             context.read<AccBloc>().add(
                                                 DeleteContactEvent(
@@ -228,12 +224,12 @@ class SosPage extends StatelessWidget {
                     textStyle: Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(color: Theme.of(context).disabledColor),
+                        .copyWith(color: Theme.of(context).disabledColor,fontSize: 18),
                   ),
                   MyText(
                     text: AppLocalizations.of(context)!.addContactsText,
                     textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).disabledColor,
+                          color: Theme.of(context).disabledColor,fontSize: 16
                         ),
                   ),
                 ],

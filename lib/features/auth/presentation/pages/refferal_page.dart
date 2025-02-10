@@ -65,8 +65,7 @@ class RefferalPage extends StatelessWidget {
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
-                                    color: AppColors.black,
-                                  )),
+                                      color: AppColors.black,)),
                           SizedBox(height: size.width * 0.1),
                           CustomTextField(
                             controller: context
@@ -84,7 +83,9 @@ class RefferalPage extends StatelessWidget {
                                 buttonName: AppLocalizations.of(context)!.skip,
                                 width: size.width * 0.4,
                                 onTap: () {
-                                  context.read<AuthBloc>().add(ReferralEvent(
+                                  context
+                                      .read<AuthBloc>()
+                                      .add(ReferralEvent(
                                       referralCode: 'Skip', context: context));
                                 },
                               ),
@@ -101,6 +102,7 @@ class RefferalPage extends StatelessWidget {
                                       context: context));
                                 },
                               ),
+                              
                             ],
                           ),
                           SizedBox(height: size.width * 0.05),

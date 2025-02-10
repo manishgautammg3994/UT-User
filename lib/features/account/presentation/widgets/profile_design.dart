@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../app/localization.dart';
 import '../../../../common/common.dart';
 import '../../../../core/utils/custom_text.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -67,25 +68,60 @@ class ProfileWidget extends StatelessWidget {
                       Navigator.pop(context, user);
                     },
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: size.width * 0.1,
-                      width: size.width * 0.1,
-                      decoration: const BoxDecoration(shape: BoxShape.circle),
-                      child: const Icon(CupertinoIcons.back,
-                          // color: Theme.of(context).primaryColorLight,
-                          color: AppColors.whiteText),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: size.width * 0.1,
+                          width: size.width * 0.1,
+                          decoration: const BoxDecoration(shape: BoxShape.circle),
+                          child: const Icon(CupertinoIcons.back,
+                              // color: Theme.of(context).primaryColorLight,
+                              color: AppColors.whiteText),
+                        ),
+                        Text(
+                          !isEditPage
+                              ? AppLocalizations.of(context)!.back.toLowerCase()
+                              : AppLocalizations.of(context)!.personalInformation,
+                          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              // color: Theme.of(context).primaryColorLight,
+                              color: AppColors.whiteText,fontSize: 20),
+                        ),
+                      ],
                     ),
-                    Text(
-                      !isEditPage
-                          ? AppLocalizations.of(context)!.back.toLowerCase()
-                          : AppLocalizations.of(context)!.personalInformation,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          // color: Theme.of(context).primaryColorLight,
-                          color: AppColors.whiteText),
-                    ),
+                    // Commented by Manish MG:
+
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                    //   child: Transform.scale(
+                    //     scaleX: size.width * 0.003,
+                    //     scaleY: size.width * 0.0026,
+                    //     child: Switch(
+                    //       value: context.read<AccBloc>().isDarkTheme,
+                    //       activeColor: Theme.of(context).primaryColorDark,
+                    //       activeTrackColor: Theme.of(context).primaryColorDark,
+                    //       inactiveTrackColor:
+                    //           Theme.of(context).primaryColorDark,
+                    //       activeThumbImage: const AssetImage(AppImages.sun),
+                    //       inactiveThumbImage : const AssetImage(AppImages.moon),
+                    //       materialTapTargetSize:
+                    //           MaterialTapTargetSize.shrinkWrap,
+                    //       onChanged: (value) async {
+                    //         context.read<AccBloc>().isDarkTheme = value;
+                    //         final locale = await AppSharedPreference
+                    //             .getSelectedLanguageCode();
+                    //         if (!context.mounted) return;
+                    //         context.read<LocalizationBloc>().add(
+                    //             LocalizationInitialEvent(
+                    //                 isDark: value, locale: Locale(locale)));
+                    //       },
+                    //     ),
+                    //   ),
+                    // )
+                    // Commented by Manish MG:
                   ],
                 ),
               ),
@@ -143,7 +179,9 @@ class ProfileWidget extends StatelessWidget {
                       textStyle: Theme.of(context)
                           .textTheme
                           .titleLarge!
-                          .copyWith(color: AppColors.white),
+                          .copyWith(
+                              color: AppColors.white,
+                              fontSize: AppConstants().headerSize),
                     ),
                   ),
                 ],

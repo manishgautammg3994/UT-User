@@ -14,9 +14,8 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SafeArea(
-          child: Column(
+    return  Scaffold(
+      body: SafeArea(child: Column(
         children: [
           Container(
             height: size.height,

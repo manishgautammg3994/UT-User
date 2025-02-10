@@ -56,8 +56,7 @@ class WaitingForDriverConfirmation extends StatelessWidget {
                       text: AppLocalizations.of(context)!.discoverYourCaptain,
                       textStyle:
                           Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                color: Theme.of(context).primaryColorDark,
-                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).primaryColorDark,fontWeight: FontWeight.w600,
                               ),
                     ),
                   ],
@@ -176,8 +175,8 @@ class WaitingForDriverConfirmation extends StatelessWidget {
                                             horizontal: size.width * 0.005),
                                         child: Icon(Icons.place_rounded,
                                             size: 20,
-                                            color: Theme.of(context)
-                                                .primaryColorDark),
+                                            color:
+                                                Theme.of(context).primaryColorDark),
                                       ),
                                       Expanded(
                                         child: MyText(

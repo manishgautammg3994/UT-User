@@ -31,9 +31,7 @@ class BookingUsecase {
     required List<AddressModel> pickupAddressList,
     required List<AddressModel> dropAddressList,
     required bool isOutstationRide,
-    // In New [Start]
     required bool isWithoutDestinationRide,
-    // In New [End]
   }) async {
     return _bookingRepository.etaRequest(
         picklat: picklat,
@@ -48,12 +46,8 @@ class BookingUsecase {
         duration: duration,
         polyLine: polyLine,
         pickupAddressList: pickupAddressList,
-        dropAddressList: dropAddressList,
-        isOutstationRide: isOutstationRide
-    // In New [Start]
-        isWithoutDestinationRide: isWithoutDestinationRide
-    // In New [End]
-        );
+        dropAddressList: dropAddressList,isOutstationRide:isOutstationRide,
+        isWithoutDestinationRide: isWithoutDestinationRide);
   }
 
   // Rental Eta Details
@@ -101,7 +95,7 @@ class BookingUsecase {
       selectedPaymentType: selectedPaymentType,
       scheduleDateTime: scheduleDateTime,
       isEtaRental: isEtaRental,
-      isBidRide: isBidRide,
+      isBidRide : isBidRide,
       goodsTypeId: goodsTypeId,
       goodsQuantity: goodsQuantity,
       offeredRideFare: offeredRideFare,
@@ -112,7 +106,7 @@ class BookingUsecase {
       paidAt: paidAt,
       isParcel: isParcel,
       packageId: packageId,
-      isOutstationRide: isOutstationRide,
+      isOutstationRide :isOutstationRide,
       isRoundTrip: isRoundTrip,
       scheduleDateTimeForReturn: scheduleDateTimeForReturn,
     );

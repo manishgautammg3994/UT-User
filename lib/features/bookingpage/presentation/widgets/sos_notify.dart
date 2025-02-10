@@ -30,12 +30,13 @@ class SOSAlertWidget extends StatelessWidget {
               const CustomDivider(),
               SizedBox(height: size.width * 0.02),
               MyText(
-                text: AppLocalizations.of(context)!.sosRideEmergencyText,
+                text:
+                    AppLocalizations.of(context)!.sosRideEmergencyText,
                 textStyle: Theme.of(context)
                     .textTheme
                     .bodyMedium!
                     .copyWith(color: Theme.of(context).disabledColor),
-                maxLines: 2,
+                maxLines: 2, 
               ),
               SizedBox(height: size.width * 0.05),
               Row(
@@ -130,8 +131,7 @@ class SOSAlertWidget extends StatelessWidget {
                                   Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
-                      Icon(Icons.call,
-                          color: Theme.of(context).primaryColorDark)
+                      Icon(Icons.call, color: Theme.of(context).primaryColorDark)
                     ],
                   ),
                 );

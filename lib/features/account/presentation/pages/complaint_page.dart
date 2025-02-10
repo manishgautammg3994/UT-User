@@ -5,6 +5,8 @@ import 'package:restart_tagxi/l10n/app_localizations.dart';
 import '../../../../common/app_arguments.dart';
 import '../../../../core/utils/custom_button.dart';
 import '../../../../core/utils/custom_loader.dart';
+
+// import '../../../../core/utils/custom_text.dart';
 import '../../../../core/utils/custom_text.dart';
 import '../../application/acc_bloc.dart';
 import '../widgets/top_bar.dart';
@@ -88,16 +90,6 @@ class ComplaintPage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: size.width * 0.03),
-                                      MyText(
-                                          text: AppLocalizations.of(context)!
-                                              .writeYourComplaint,
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .disabledColor,
-                                                  fontWeight: FontWeight.w400)),
                                       SizedBox(height: size.width * 0.01),
                                       TextField(
                                           controller: context
@@ -105,8 +97,19 @@ class ComplaintPage extends StatelessWidget {
                                               .complaintController,
                                           maxLines: 5,
                                           textAlign: TextAlign.start,
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                AppLocalizations.of(context)!
+                                                    .writeYourComplaint,
+                                            hintStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .disabledColor,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 16),
+                                            border: const OutlineInputBorder(
                                               borderSide: BorderSide.none,
                                             ),
                                             contentPadding: EdgeInsets.zero,
@@ -121,6 +124,7 @@ class ComplaintPage extends StatelessWidget {
                                   buttonName:
                                       AppLocalizations.of(context)!.submit,
                                   onTap: () {
+                                    FocusScope.of(context).unfocus();
                                     final complaintText = context
                                         .read<AccBloc>()
                                         .complaintController

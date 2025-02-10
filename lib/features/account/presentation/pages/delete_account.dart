@@ -42,8 +42,7 @@ class DeleteAccount extends StatelessWidget {
                                   .textTheme
                                   .titleLarge!
                                   .copyWith(
-                                      color: Theme.of(context).primaryColorDark,
-                                      fontSize: 20),
+                                      color: Theme.of(context).primaryColorDark,fontSize: 20),
                             ),
                           ],
                         ),

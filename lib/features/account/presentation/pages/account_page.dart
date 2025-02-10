@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restart_tagxi/common/app_constants.dart';
 import 'package:restart_tagxi/features/account/presentation/pages/outstation_page.dart';
 import '../../../../common/app_arguments.dart';
 import '../../../../core/utils/custom_loader.dart';
@@ -79,13 +80,18 @@ class AccountPage extends StatelessWidget {
                                 MyText(
                                     text:
                                         AppLocalizations.of(context)!.myAccount,
-                                    textStyle:
-                                        Theme.of(context).textTheme.titleLarge),
+                                    textStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                            fontSize:
+                                                AppConstants().subHeaderSize)),
                                 PageOptions(
                                   optionName: AppLocalizations.of(context)!
                                       .personalInformation,
                                   onTap: () {
                                     Navigator.pushNamed(
+
                                             context, EditPage.routeName,
                                             arguments: EditPageArguments(
                                                 userData: context
@@ -248,8 +254,12 @@ class AccountPage extends StatelessWidget {
                                 const SizedBox(height: 20),
                                 MyText(
                                   text: AppLocalizations.of(context)!.general,
-                                  textStyle:
-                                      Theme.of(context).textTheme.titleLarge,
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                          fontSize:
+                                              AppConstants().subHeaderSize),
                                 ),
                                 PageOptions(
                                   optionName:

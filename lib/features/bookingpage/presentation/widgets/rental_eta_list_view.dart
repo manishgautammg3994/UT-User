@@ -51,8 +51,7 @@ Widget rentalEtaListViewWidget(
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                  color: Theme.of(context).primaryColorDark.withOpacity(0.7)),
+              border: Border.all(color: Theme.of(context).primaryColorDark.withOpacity(0.7)),
               color: AppColors.darkGrey.withOpacity(0.3)),
           child: Padding(
             padding: const EdgeInsets.all(5.0),
@@ -81,60 +80,57 @@ Widget rentalEtaListViewWidget(
                   .bodyMedium!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
-            if (arg.userData.showRideLaterFeature)
-              InkWell(
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: false,
-                      enableDrag: false,
-                      isDismissible: true,
-                      barrierColor: Theme.of(context).shadowColor,
-                      backgroundColor:
-                          Theme.of(context).scaffoldBackgroundColor,
-                      builder: (_) {
-                        return scheduleRide(context, size, arg, false);
-                      });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (context.read<BookingBloc>().showDateTime.isEmpty) ...[
-                        MyText(
-                          text: AppLocalizations.of(context)!.now,
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                  color: Theme.of(context).primaryColorDark,
-                                  fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(width: size.width * 0.02),
-                        Icon(Icons.calendar_month,
-                            size: 20,
-                            color: Theme.of(context).primaryColorDark),
-                      ],
-                      if (context
-                          .read<BookingBloc>()
-                          .showDateTime
-                          .isNotEmpty) ...[
-                        MyText(
-                          text: context.read<BookingBloc>().showDateTime,
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  color: Theme.of(context).primaryColorDark),
-                        ),
-                        Icon(Icons.cancel_outlined,
-                            size: 18, color: Theme.of(context).primaryColorDark)
-                      ]
+            if(arg.userData.showRideLaterFeature)
+            InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: false,
+                    enableDrag: false,
+                    isDismissible: true,
+                    barrierColor: Theme.of(context).shadowColor,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    builder: (_) {
+                      return scheduleRide(context, size, arg,false);
+                    });
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (context.read<BookingBloc>().showDateTime.isEmpty) ...[
+                      MyText(
+                        text: AppLocalizations.of(context)!.now,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(
+                                color: Theme.of(context).primaryColorDark,
+                                fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: size.width * 0.02),
+                      Icon(Icons.calendar_month,
+                          size: 20, color: Theme.of(context).primaryColorDark),
                     ],
-                  ),
+                    if (context
+                        .read<BookingBloc>()
+                        .showDateTime
+                        .isNotEmpty) ...[
+                      MyText(
+                        text: context.read<BookingBloc>().showDateTime,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: Theme.of(context).primaryColorDark),
+                      ),
+                      Icon(Icons.cancel_outlined,
+                          size: 18, color: Theme.of(context).primaryColorDark)
+                    ]
+                  ],
                 ),
               ),
+            ),
           ],
         ),
         SizedBox(height: size.width * 0.02),
@@ -155,8 +151,9 @@ Widget rentalEtaListViewWidget(
                   .elementAt(index);
               return InkWell(
                 onTap: () {
-                  context.read<BookingBloc>().add(BookingEtaSelectEvent(
-                      selectedVehicleIndex: index,
+                  context
+                      .read<BookingBloc>()
+                      .add(BookingEtaSelectEvent(selectedVehicleIndex: index,
                       isOutstationRide: arg.isOutstationRide));
                   final selectedSize = context
                               .read<BookingBloc>()
@@ -192,9 +189,7 @@ Widget rentalEtaListViewWidget(
                         : Theme.of(context).dividerColor.withOpacity(0.1),
                     border: Border.all(
                         color: (index == 0) // Selected item at the top
-                            ? Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(0.7)
+                            ? Theme.of(context).primaryColorDark.withOpacity(0.7)
                             : Colors.white),
                     borderRadius: BorderRadius.circular(6),
                   ),
@@ -304,7 +299,6 @@ Widget rentalEtaListViewWidget(
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            // SizedBox(width: size.width * 0.01),
                             SizedBox(
                               width: size.width * 0.2,
                               child: Column(
@@ -326,8 +320,8 @@ Widget rentalEtaListViewWidget(
                                                         .showBiddingVehicles)
                                                 ? TextDecoration.lineThrough
                                                 : null,
-                                            decorationColor: Theme.of(context)
-                                                .primaryColorDark,
+                                            decorationColor:
+                                                Theme.of(context).primaryColorDark,
                                             decorationThickness: 2),
                                   ),
                                   if (eta.hasDiscount &&

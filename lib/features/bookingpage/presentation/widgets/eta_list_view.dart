@@ -15,7 +15,7 @@ Widget etaListViewWidget(Size size, BuildContext context,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       if (context.read<BookingBloc>().isMultiTypeVechiles &&
-          !arg.isOutstationRide) ...[
+          !arg.isOutstationRide && (arg.isWithoutDestinationRide == null ||(arg.isWithoutDestinationRide!= null &&!arg.isWithoutDestinationRide!)))  ...[
         SizedBox(height: size.width * 0.04),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -24,6 +24,7 @@ Widget etaListViewWidget(Size size, BuildContext context,
             children: [
               Row(
                 children: [
+                  if(arg.isWithoutDestinationRide == null||!arg.isWithoutDestinationRide!)
                   InkWell(
                     onTap: () {
                       if (!context.read<BookingBloc>().showBiddingVehicles) {
@@ -114,6 +115,9 @@ Widget etaListViewWidget(Size size, BuildContext context,
         ),
         SizedBox(height: size.width * 0.05),
       ],
+      if(arg.isWithoutDestinationRide != null &&
+          arg.isWithoutDestinationRide!)
+        SizedBox(height: size.width * 0.04),
       if (arg.isOutstationRide) ...[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -413,13 +417,16 @@ Widget etaListViewWidget(Size size, BuildContext context,
         ),
       ),
       SizedBox(height: size.width * 0.02),
-      (context.read<BookingBloc>().isEtaFilter &&
-              !context.read<BookingBloc>().filterSuccess)
+      ((context.read<BookingBloc>().isEtaFilter &&
+              !context.read<BookingBloc>().filterSuccess) || ((context
+                      .read<BookingBloc>()
+                      .isMultiTypeVechiles && context.read<BookingBloc>().sortedEtaDetailsList.isEmpty) 
+                      || context.read<BookingBloc>().etaDetailsList.isEmpty))
           ? SizedBox(
               height: size.height * 0.49,
               child: Center(child: Image.asset(AppImages.noDataFound)))
           : SizedBox(
-              height: (arg.isOutstationRide)
+              height: (arg.isOutstationRide) 
                   ? size.height * 0.34
                   : size.height * 0.44,
               child: ListView.builder(
@@ -562,16 +569,6 @@ Widget etaListViewWidget(Size size, BuildContext context,
                                                                   eta.typeId))
                                                       .duration
                                                       .isNotEmpty)
-                                              //  && context
-                                              //       .read<BookingBloc>()
-                                              //       .nearByEtaVechileList[index]
-                                              //       .duration
-                                              //       .isNotEmpty
-                                              // )
-                                              // ? context
-                                              //     .read<BookingBloc>()
-                                              //     .nearByEtaVechileList[index]
-                                              //     .duration
                                               ? context
                                                   .read<BookingBloc>()
                                                   .nearByEtaVechileList
@@ -614,7 +611,6 @@ Widget etaListViewWidget(Size size, BuildContext context,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                // SizedBox(width: size.width * 0.01),
                                 SizedBox(
                                   width: size.width * 0.2,
                                   child: Column(
@@ -622,10 +618,6 @@ Widget etaListViewWidget(Size size, BuildContext context,
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      // if (eta.hasDiscount &&
-                                      //     !context
-                                      //         .read<BookingBloc>()
-                                      //         .showBiddingVehicles)
                                       MyText(
                                         text:
                                             '${eta.currency.toString()} ${eta.total.toStringAsFixed(1)}',

@@ -101,7 +101,7 @@ class HistoryPage extends StatelessWidget {
                                         .bodyMedium!
                                         .copyWith(
                                             color: Theme.of(context)
-                                                .disabledColor),
+                                                .disabledColor,fontSize: 18),
                                   ),
                                   MyText(
                                     text: AppLocalizations.of(context)!
@@ -111,7 +111,7 @@ class HistoryPage extends StatelessWidget {
                                         .bodyMedium!
                                         .copyWith(
                                           color:
-                                              Theme.of(context).disabledColor,
+                                              Theme.of(context).disabledColor,fontSize: 16
                                         ),
                                   ),
                                 ],
@@ -137,7 +137,7 @@ class HistoryPage extends StatelessWidget {
                                       padding: const EdgeInsets.only(bottom: 5),
                                       child: InkWell(
                                         onTap: () {
-                                          if (history.isLater == true) {
+                                          if (history.isLater == true&& history.isCancelled !=1) {
                                             if (history.isOutStation == 1 &&
                                                 history.driverDetail == null) {
                                               Navigator.pushNamed(

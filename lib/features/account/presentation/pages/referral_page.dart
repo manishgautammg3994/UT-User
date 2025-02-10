@@ -86,7 +86,7 @@ class ReferralPage extends StatelessWidget {
                                         color:
                                             Theme.of(context).primaryColorDark,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 15),
+                                        fontSize: 20),
                               ),
                             ],
                           ),
@@ -109,9 +109,9 @@ class ReferralPage extends StatelessWidget {
                           MyText(
                             text: AppLocalizations.of(context)!
                                 .shareYourInviteCode,
-                            textStyle: Theme.of(context).textTheme.bodyMedium,
+                            textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20),
                           ),
-                          SizedBox(height: size.width * 0.05),
+                          SizedBox(height: size.width * 0.03),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -121,7 +121,7 @@ class ReferralPage extends StatelessWidget {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
-                                        color: Theme.of(context).disabledColor),
+                                        color: Theme.of(context).disabledColor,fontSize: 18),
                               ),
                               InkWell(
                                 onTap: () {

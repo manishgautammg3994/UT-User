@@ -76,9 +76,7 @@ class RegisterPage extends StatelessWidget {
                                   textStyle: Theme.of(context)
                                       .textTheme
                                       .displayLarge!
-                                      .copyWith(
-                                        color: AppColors.black,
-                                      ),
+                                      .copyWith(color: AppColors.black),
                                 ),
                                 SizedBox(height: size.width * 0.1),
                                 buildProfilePick(size, context),
@@ -89,8 +87,9 @@ class RegisterPage extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        color: AppColors.black,
-                                      ),
+                                          color: AppColors.black,
+                                          fontSize:
+                                              AppConstants().subHeaderSize),
                                 ),
                                 SizedBox(height: size.width * 0.02),
                                 buildUserNameField(context),
@@ -101,8 +100,9 @@ class RegisterPage extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        color: AppColors.black,
-                                      ),
+                                          color: AppColors.black,
+                                          fontSize:
+                                              AppConstants().subHeaderSize),
                                 ),
                                 SizedBox(height: size.width * 0.02),
                                 buildMobileField(context, size),
@@ -113,8 +113,9 @@ class RegisterPage extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        color: AppColors.black,
-                                      ),
+                                          color: AppColors.black,
+                                          fontSize:
+                                              AppConstants().subHeaderSize),
                                 ),
                                 SizedBox(height: size.width * 0.02),
                                 buildEmailField(context),
@@ -125,8 +126,9 @@ class RegisterPage extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        color: AppColors.black,
-                                      ),
+                                          color: AppColors.black,
+                                          fontSize:
+                                              AppConstants().subHeaderSize),
                                 ),
                                 SizedBox(height: size.width * 0.02),
                                 buildDropDownGenderField(context),
@@ -137,8 +139,9 @@ class RegisterPage extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        color: AppColors.black,
-                                      ),
+                                          color: AppColors.black,
+                                          fontSize:
+                                              AppConstants().subHeaderSize),
                                 ),
                                 SizedBox(height: size.width * 0.02),
                                 buildPasswordField(context, size),
@@ -178,7 +181,6 @@ class RegisterPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    // context.read<AuthBloc>().add(ImageUpdateEvent());
                     _showImageSourceSheet(context);
                   },
                   child: Container(

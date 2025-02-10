@@ -124,9 +124,7 @@ class BiddingWaitingForDriverConfirmation extends StatelessWidget {
                                     ? Theme.of(context)
                                         .disabledColor
                                         .withOpacity(0.2)
-                                    : Theme.of(context)
-                                        .primaryColorDark
-                                        .withOpacity(0.5),
+                                    : Theme.of(context).primaryColorDark.withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(5)),
                             padding: EdgeInsets.all(size.width * 0.025),
                             child: MyText(
@@ -139,10 +137,7 @@ class BiddingWaitingForDriverConfirmation extends StatelessWidget {
                                       color: context
                                               .read<BookingBloc>()
                                               .isBiddingDecreaseLimitReach
-                                          ? (Theme.of(context).brightness ==
-                                                  Brightness.light)
-                                              ? AppColors.black
-                                              : AppColors.white
+                                          ? (Theme.of(context).brightness==Brightness.light)?AppColors.black:AppColors.white
                                           : AppColors.white),
                             ),
                           ),
@@ -251,8 +246,7 @@ class BiddingWaitingForDriverConfirmation extends StatelessWidget {
                                 .textTheme
                                 .bodyLarge!
                                 .copyWith(
-                                    color: Theme.of(context).primaryColorDark,
-                                    fontWeight: FontWeight.w600),
+                                    color: Theme.of(context).primaryColorDark,fontWeight: FontWeight.w600),
                           ),
                         ),
                         InkWell(
@@ -275,9 +269,7 @@ class BiddingWaitingForDriverConfirmation extends StatelessWidget {
                                     ? Theme.of(context)
                                         .disabledColor
                                         .withOpacity(0.2)
-                                    : Theme.of(context)
-                                        .primaryColorDark
-                                        .withOpacity(0.5),
+                                    : Theme.of(context).primaryColorDark.withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(5)),
                             padding: EdgeInsets.all(size.width * 0.025),
                             child: MyText(
@@ -290,10 +282,7 @@ class BiddingWaitingForDriverConfirmation extends StatelessWidget {
                                       color: context
                                               .read<BookingBloc>()
                                               .isBiddingIncreaseLimitReach
-                                          ? (Theme.of(context).brightness ==
-                                                  Brightness.light)
-                                              ? AppColors.black
-                                              : AppColors.white
+                                          ? (Theme.of(context).brightness==Brightness.light)?AppColors.black:AppColors.white
                                           : AppColors.white),
                             ),
                           ),
@@ -439,9 +428,7 @@ class BiddingWaitingForDriverConfirmation extends StatelessWidget {
                                     .read<BookingBloc>()
                                     .add(BiddingFareUpdateEvent());
                               } else {
-                                showToast(
-                                    message: AppLocalizations.of(context)!
-                                        .biddingLimitCrossed);
+                                showToast(message: AppLocalizations.of(context)!.biddingLimitCrossed);
                               }
                             },
                           ),
@@ -507,31 +494,6 @@ class BiddingWaitingForDriverConfirmation extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // Container(
-                                    //   height: 5,
-                                    //   width: (DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(driver['bid_time'])).inSeconds <
-                                    //           int.parse(context
-                                    //               .read<BookingBloc>()
-                                    //               .userData!
-                                    //               .maximumTimeForFindDriversForBittingRide))
-                                    //       ? (size.width *
-                                    //               0.85 /
-                                    //               int.parse(context
-                                    //                   .read<BookingBloc>()
-                                    //                   .userData!
-                                    //                   .maximumTimeForFindDriversForBittingRide)) *
-                                    //           (int.parse(context
-                                    //                   .read<BookingBloc>()
-                                    //                   .userData!
-                                    //                   .maximumTimeForFindDriversForBittingRide) -
-                                    //               double.parse(DateTime.now()
-                                    //                   .difference(DateTime.fromMillisecondsSinceEpoch(
-                                    //                       driver['bid_time']))
-                                    //                   .inSeconds
-                                    //                   .toString()))
-                                    //       : 0,
-                                    //   color: Theme.of(context).primaryColor,
-                                    // ),
                                     Column(
                                       children: [
                                         Row(
@@ -707,14 +669,7 @@ class BiddingWaitingForDriverConfirmation extends StatelessWidget {
                                                               .textTheme
                                                               .bodySmall!
                                                               .copyWith(
-                                                                  color: (Theme.of(context)
-                                                                              .brightness ==
-                                                                          Brightness
-                                                                              .light)
-                                                                      ? AppColors
-                                                                          .black
-                                                                      : AppColors
-                                                                          .white),
+                                                                  color: (Theme.of(context).brightness==Brightness.light)?AppColors.black:AppColors.white),
                                                         ),
                                                       ),
                                                     ],

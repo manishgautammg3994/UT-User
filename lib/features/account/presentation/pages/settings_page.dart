@@ -14,6 +14,7 @@ import 'faq_page.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settingsPage';
+
   const SettingsPage({super.key});
 
   @override

@@ -40,10 +40,7 @@ class ApplyCouponWidget extends StatelessWidget {
                           textStyle: Theme.of(context)
                               .textTheme
                               .bodyMedium!
-                              .copyWith(
-                                  color: Theme.of(context).primaryColorDark,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16),
+                              .copyWith(color: Theme.of(context).primaryColorDark,fontWeight: FontWeight.w600,fontSize: 16),
                         ),
                         MyText(
                           text: AppLocalizations.of(context)!.applyCouponText,
@@ -54,31 +51,6 @@ class ApplyCouponWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Row(
-                    //   children: [
-                    //     (context.read<BookingBloc>().isMultiTypeVechiles
-                    //             ? context
-                    //                 .read<BookingBloc>()
-                    //                 .sortedEtaDetailsList[context
-                    //                     .read<BookingBloc>()
-                    //                     .selectedVehicleIndex]
-                    //                 .hasDiscount
-                    //             : context
-                    //                 .read<BookingBloc>()
-                    //                 .etaDetailsList[context
-                    //                     .read<BookingBloc>()
-                    //                     .selectedVehicleIndex]
-                    //                 .hasDiscount)
-                    //         ? MyText(
-                    //             text: 'Applied',
-                    //             textStyle: Theme.of(context)
-                    //                 .textTheme
-                    //                 .bodyMedium!
-                    //                 .copyWith(color: AppColors.green))
-                    //         : Icon(Icons.percent_rounded,
-                    //             color: Theme.of(context).primaryColor),
-                    //   ],
-                    // )
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
@@ -244,7 +216,10 @@ class ApplyCouponWidget extends StatelessWidget {
                                       context.read<BookingBloc>().polyLine,
                                   pickupAddressList: arg.pickupAddressList,
                                   dropAddressList: arg.stopAddressList,
-                                  isOutstationRide: arg.isOutstationRide));
+                                  isOutstationRide: arg.isOutstationRide,
+                                  isWithoutDestinationRide:
+                                      arg.isWithoutDestinationRide ??
+                                          false));
                         } else {
                           if (context
                               .read<BookingBloc>()
@@ -288,7 +263,10 @@ class ApplyCouponWidget extends StatelessWidget {
                                         context.read<BookingBloc>().polyLine,
                                     pickupAddressList: arg.pickupAddressList,
                                     dropAddressList: arg.stopAddressList,
-                                    isOutstationRide: arg.isOutstationRide));
+                                    isOutstationRide: arg.isOutstationRide,
+                                    isWithoutDestinationRide:
+                                        arg.isWithoutDestinationRide ??
+                                            false));
                           } else {
                             context.read<BookingBloc>().promoErrorText =
                                 AppLocalizations.of(context)!
@@ -331,23 +309,6 @@ class ApplyCouponWidget extends StatelessWidget {
                                       .read<BookingBloc>()
                                       .applyCouponController
                                       .text,
-                                  // vehicleId: (arg.transportType != 'taxi')
-                                  //     ? (context
-                                  //             .read<BookingBloc>()
-                                  //             .isMultiTypeVechiles)
-                                  //         ? context
-                                  //             .read<BookingBloc>()
-                                  //             .sortedEtaDetailsList[context
-                                  //                 .read<BookingBloc>()
-                                  //                 .selectedVehicleIndex]
-                                  //             .zoneTypeId
-                                  //         : context
-                                  //             .read<BookingBloc>()
-                                  //             .etaDetailsList[context
-                                  //                 .read<BookingBloc>()
-                                  //                 .selectedVehicleIndex]
-                                  //             .zoneTypeId
-                                  //     : null,
                                 ));
                           } else {
                             context.read<BookingBloc>().promoErrorText =
@@ -366,17 +327,15 @@ class ApplyCouponWidget extends StatelessWidget {
               SizedBox(height: size.width * 0.08),
               if ((!context.read<BookingBloc>().isRentalRide &&
                       (context.read<BookingBloc>().isMultiTypeVechiles
-                          ? context
-                              .read<BookingBloc>()
-                              .sortedEtaDetailsList[context
-                                  .read<BookingBloc>()
-                                  .selectedVehicleIndex]
-                              .hasDiscount
-                          : context
-                              .read<BookingBloc>()
-                              .etaDetailsList[context
-                                  .read<BookingBloc>()
-                                  .selectedVehicleIndex]
+                  ? context
+                      .read<BookingBloc>()
+                      .sortedEtaDetailsList[
+                          context.read<BookingBloc>().selectedVehicleIndex]
+                      .hasDiscount
+                  : context
+                      .read<BookingBloc>()
+                      .etaDetailsList[
+                          context.read<BookingBloc>().selectedVehicleIndex]
                               .hasDiscount)) ||
                   (context.read<BookingBloc>().isRentalRide &&
                       context

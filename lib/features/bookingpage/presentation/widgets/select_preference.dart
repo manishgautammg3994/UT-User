@@ -24,8 +24,7 @@ Widget selectPreference(BuildContext context, Size size) {
             MyText(
               text: AppLocalizations.of(context)!.preference,
               textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context).primaryColorDark,
-                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColorDark,fontWeight: FontWeight.bold,
                   ),
             ),
             SizedBox(height: size.width * 0.05),

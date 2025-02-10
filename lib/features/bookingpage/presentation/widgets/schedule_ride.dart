@@ -115,15 +115,13 @@ Widget scheduleRide(BuildContext context, Size size, BookingPageArguments arg,
                             .toString();
                     context.read<BookingBloc>().add(UpdateEvent());
                   }
-                } else {
-                  if (context
-                      .read<BookingBloc>()
-                      .scheduleDateTimeForReturn
-                      .isNotEmpty) {
+                }else{
+                   if (context.read<BookingBloc>().scheduleDateTimeForReturn.isNotEmpty) {
                     context.read<BookingBloc>().add(UpdateEvent());
                   } else {
-                    context.read<BookingBloc>().showReturnDateTime =
-                        intel.DateFormat('dd/MM/yyyy (hh:mm a)').format(
+                    context.read<BookingBloc>().showReturnDateTime = intel.DateFormat(
+                            'dd/MM/yyyy (hh:mm a)')
+                        .format(
                             DateTime.tryParse(context
                                     .read<BookingBloc>()
                                     .scheduleDateTime)!

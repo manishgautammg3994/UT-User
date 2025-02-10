@@ -26,6 +26,7 @@ class BookingApi {
     String? promoCode,
     String? vehicleType,
     required bool isOutstationRide,
+    required bool isWithoutDestinationRide,
   }) async {
     try {
       final token = await AppSharedPreference.getToken();
@@ -42,8 +43,8 @@ class BookingApi {
           body: FormData.fromMap({
             'pick_lat': picklat,
             'pick_lng': picklng,
-            if (droplat.isNotEmpty) 'drop_lat': droplat,
-            if (droplng.isNotEmpty) 'drop_lng': droplng,
+            if (droplat.isNotEmpty && !isWithoutDestinationRide) 'drop_lat': droplat,
+            if (droplng.isNotEmpty && !isWithoutDestinationRide) 'drop_lng': droplng,
             'ride_type': rideType,
             if (promoCode != null) 'promo_code': promoCode,
             if (vehicleType != null) 'vehicle_type': vehicleType,
@@ -60,7 +61,7 @@ class BookingApi {
                 ? dropAddressList.last.address.split(',')[0]
                 : '',
             if (stopList.isNotEmpty) 'stops': jsonEncode(stopList),
-            if (isOutstationRide) 'is_out_station': '1',
+           if(isOutstationRide) 'is_out_station': '1',
           }));
       return response;
     } catch (e) {
@@ -183,22 +184,16 @@ class BookingApi {
             'goods_type_quantity': goodsQuantity,
           if (dropAddressList.length > 1) 'stops': jsonEncode(dropAddressList),
           if (isEtaRental && packageId != null) 'rental_pack_id': packageId,
-          if (vehicleData.hasDiscount == true)
+           if (vehicleData.hasDiscount == true)
             'promocode_id': vehicleData.promocodeId,
-          // if (selectedTransportType != 'taxi')
-          //   'no_of_vehicles': vehicleData.numberOfVehicles,
-          // if (selectedTransportType != 'taxi')
-          //   'is_multiple_vehicles':
-          //       (vehicleData.numberOfVehicles > 1) ? true : false,
           'poly_line': polyLine,
           'is_pet_available': isPetAvailable,
           'is_luggage_available': isLuggageAvailable,
           if (!isEtaRental) 'distance': vehicleData.distanceInMeters,
           if (!isEtaRental) 'duration': vehicleData.time.toString(),
-          if (isOutstationRide) 'is_out_station': '1',
-          if (isOutstationRide && isRoundTrip) 'is_round_trip': '1',
-          if (isOutstationRide && isRoundTrip)
-            'return_time': scheduleDateTimeForReturn,
+          if(isOutstationRide) 'is_out_station' : '1',
+          if (isOutstationRide&&isRoundTrip) 'is_round_trip':'1',
+          if(isOutstationRide && isRoundTrip) 'return_time': scheduleDateTimeForReturn,
         }),
       );
       return response;
@@ -251,7 +246,10 @@ class BookingApi {
   // Goods Type
   Future<dynamic> goodsTypeApi() async {
     try {
-      Response response = await DioProviderImpl().get(ApiEndpoints.goodsType);
+      final token = await AppSharedPreference.getToken();
+      Response response = await DioProviderImpl().get(ApiEndpoints.goodsType,
+      headers: {'Authorization': token, 'Content-Type': 'application/json'},
+      );
       return response;
     } catch (e) {
       debugPrint(e.toString());
@@ -360,14 +358,14 @@ class BookingApi {
           ApiEndpoints.getPolyline,
           body: {
             "origin": {
-              "location": {
+              "location":{
                 "latLng": {"latitude": pickLat, "longitude": pickLng}
               }
             },
             "destination": {
-              "location": {
+              "location":{
                 "latLng": {"latitude": dropLat, "longitude": dropLng}
-              }
+              }             
             },
             "intermediates": intermediates,
             "travelMode": "DRIVE",

@@ -16,6 +16,7 @@ class FavoriteLocationPage extends StatelessWidget {
   static const String routeName = '/favoriteLocation';
 
   const FavoriteLocationPage({super.key, required this.arg});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -120,7 +121,7 @@ class FavoriteLocationPage extends StatelessWidget {
                                             .copyWith(
                                                 color: Theme.of(context)
                                                     .primaryColorDark,
-                                                fontSize: 12,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.bold),
                                       ),
                                       MyText(
@@ -210,7 +211,7 @@ class FavoriteLocationPage extends StatelessWidget {
                                               .copyWith(
                                                   color: Theme.of(context)
                                                       .primaryColorDark,
-                                                  fontSize: 12,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.bold),
                                         ),
                                         MyText(
@@ -222,7 +223,8 @@ class FavoriteLocationPage extends StatelessWidget {
                                               .copyWith(
                                                   color: Theme.of(context)
                                                       .disabledColor
-                                                      .withOpacity(0.6)),
+                                                      .withOpacity(0.6),
+                                                  fontSize: 16),
                                         ),
                                       ],
                                     )),
@@ -360,7 +362,7 @@ class FavoriteLocationPage extends StatelessWidget {
                                               .copyWith(
                                                   color: Theme.of(context)
                                                       .primaryColorDark,
-                                                  fontSize: 12,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.bold),
                                         ),
                                         MyText(
@@ -370,6 +372,7 @@ class FavoriteLocationPage extends StatelessWidget {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
+                                                  fontSize: 16,
                                                   color: Theme.of(context)
                                                       .disabledColor
                                                       .withOpacity(0.6)),
@@ -551,7 +554,7 @@ class FavoriteLocationPage extends StatelessWidget {
                                       .copyWith(
                                         color:
                                             Theme.of(context).primaryColorDark,
-                                        fontSize: 14,
+                                        fontSize: 16,
                                       ),
                                 ),
                               ],

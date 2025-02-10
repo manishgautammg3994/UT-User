@@ -148,13 +148,6 @@ class AuthBottomSheetState extends State<AuthBottomSheet>
                                       shape: BoxShape.rectangle,
                                       color: Theme.of(context).disabledColor,
                                       borderRadius: BorderRadius.circular(5),
-
-                                      // image: (widget.flagImage.isNotEmpty)
-                                      // ? DecorationImage(
-                                      //     image: NetworkImage(
-                                      //         widget.flagImage),
-                                      //     fit: BoxFit.fill)
-                                      // : null,
                                     ),
                                     child: CachedNetworkImage(
                                       imageUrl: widget.flagImage,
@@ -298,13 +291,29 @@ class AuthBottomSheetState extends State<AuthBottomSheet>
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          MyText(
-                            text: widget.emailOrMobile.text,
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(fontSize: 24),
-                          ),
+                          Wrap(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              alignment : WrapAlignment.center,
+                              children: [
+                                if(!widget.isLoginByEmail)
+                                MyText(
+                                  text: widget.dialCode,
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(fontSize: 20),
+                                ),
+                                SizedBox(width: size.width * 0.02),
+                                MyText(
+                                  text: widget.emailOrMobile.text,
+                                  maxLines: 3,
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(fontSize: 20),
+                                ),
+                              ],
+                            ),
                           const SizedBox(height: 20),
                           RichText(
                             text: TextSpan(

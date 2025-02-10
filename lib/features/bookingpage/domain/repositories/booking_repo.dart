@@ -27,6 +27,7 @@ abstract class BookingRepository {
     required List<AddressModel> pickupAddressList,
     required List<AddressModel> dropAddressList,
     required bool isOutstationRide,
+    required bool isWithoutDestinationRide,
   });
 
   // Rental Eta Details

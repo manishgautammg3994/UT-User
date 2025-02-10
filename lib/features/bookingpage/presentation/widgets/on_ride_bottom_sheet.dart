@@ -38,74 +38,50 @@ class OnRideBottomSheet extends StatelessWidget {
                           0) &&
                   (context.read<BookingBloc>().waitingTime / 60)
                           .toStringAsFixed(0) !=
-                      '0' &&
-                  context.read<BookingBloc>().requestData!.isBidRide == 0 &&
-                  !context.read<BookingBloc>().requestData!.isRental)
-                // Container(
-                //   height: size.width * 0.1,
-                //   width: size.width * 0.25,
-                //   margin: EdgeInsets.only(
-                //       right: size.width * 0.03, bottom: size.width * 0.03),
-                //   decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(5),
-                //       color: Theme.of(context).primaryColor),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       MyText(
-                //         text:
-                //             // '${(context.read<BookingBloc>().waitingTime / 60).toStringAsFixed(0)} min',
-                //             context
-                //                 .read<BookingBloc>()
-                //                 .formatDuration(
-                //                     context.read<BookingBloc>().waitingTime)
-                //                 .toString(),
-                //         textStyle:
-                //             Theme.of(context).textTheme.bodyMedium!.copyWith(
-                //                   color: AppColors.white,
-                //                   fontWeight: FontWeight.bold,
-                //                 ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                      '0' && context.read<BookingBloc>().requestData!.isBidRide ==0 && !context.read<BookingBloc>().requestData!.isRental) 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      Image.asset(
-                        AppImages.waitingTime,
-                        color: Theme.of(context).disabledColor,
-                        width: size.width * 0.098,
-                        fit: BoxFit.contain,
+                  alignment: AlignmentDirectional.bottomCenter,
+                  children: [
+                    Image.asset(
+                      AppImages.waitingTime,
+                      color: Theme.of(context).disabledColor,
+                      width: size.width * 0.098,
+                      fit: BoxFit.contain,
+                    ),
+                    Positioned(
+                        child: Container(
+                      margin: const EdgeInsets.only(bottom: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(5)),
+                        boxShadow: [
+                          BoxShadow(
+                              color:
+                                  Theme.of(context).shadowColor,
+                              spreadRadius: 1,
+                              blurRadius: 1)
+                        ],
+                        color: AppColors.secondary,
                       ),
-                      Positioned(
-                          child: Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Theme.of(context).shadowColor,
-                                spreadRadius: 1,
-                                blurRadius: 1)
-                          ],
-                          color: AppColors.secondary,
-                        ),
-                        padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                        child: MyText(
-                          text:
-                              '${context.read<BookingBloc>().formatDuration(context.read<BookingBloc>().waitingTime).toString()} ${AppLocalizations.of(context)!.mins}',
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.black),
-                        ),
-                      ))
-                    ],
-                  ),
+                      padding:
+                          const EdgeInsets.fromLTRB(5, 2, 5, 2),
+                      child: MyText(
+                        text:
+                            '${context
+                                  .read<BookingBloc>()
+                                  .formatDuration(
+                                      context.read<BookingBloc>().waitingTime)
+                                  .toString()} ${AppLocalizations.of(context)!.mins}',
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: Colors.black),
+                      ),
+                    ))
+                  ],
+                                ),
                 ),
               Container(
                 width: size.width,
@@ -204,12 +180,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                               .textTheme
                                               .bodyMedium!
                                               .copyWith(
-                                                color: (Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.light)
-                                                    ? AppColors.white
-                                                    : AppColors.black,
-                                              ),
+                                                  color: (Theme.of(context).brightness==Brightness.light)?AppColors.white:AppColors.black,),
                                         ),
                                         MyText(
                                           text: context
@@ -221,11 +192,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                               .textTheme
                                               .bodyLarge!
                                               .copyWith(
-                                                  color: (Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.light)
-                                                      ? AppColors.black
-                                                      : AppColors.white,
+                                                  color: (Theme.of(context).brightness==Brightness.light)?AppColors.black:AppColors.white,
                                                   fontWeight: FontWeight.bold),
                                         )
                                       ],
@@ -283,7 +250,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                                         .driverArriveText
                                                         .replaceAll('**',
                                                             '${(context.read<BookingBloc>().duration.isNotEmpty && context.read<BookingBloc>().duration != '0') ? context.read<BookingBloc>().duration : 2}'),
-                                                    textStyle: Theme.of(context)
+                                                   textStyle: Theme.of(context)
                                                         .textTheme
                                                         .bodySmall!,
                                                     maxLines: 2,
@@ -307,12 +274,11 @@ class OnRideBottomSheet extends StatelessWidget {
                                                                 .isTripStart ==
                                                             0)
                                                     ? (context
-                                                                    .read<
-                                                                        BookingBloc>()
-                                                                    .requestData!
-                                                                    .isBidRide ==
-                                                                1 ||
-                                                            context
+                                                                .read<
+                                                                    BookingBloc>()
+                                                                .requestData!
+                                                                .isBidRide ==
+                                                            1 || context
                                                                 .read<
                                                                     BookingBloc>()
                                                                 .requestData!
@@ -374,8 +340,9 @@ class OnRideBottomSheet extends StatelessWidget {
                                       .withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                      width: 0.5,
-                                      color: Theme.of(context).disabledColor)),
+                                    width: 0.5,
+                                      color: Theme.of(context)
+                                          .disabledColor)),
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Row(
@@ -449,74 +416,59 @@ class OnRideBottomSheet extends StatelessWidget {
                                                       ),
                                                       Wrap(
                                                         children: [
-                                                          if (context
-                                                                  .read<
-                                                                      BookingBloc>()
-                                                                  .driverData!
-                                                                  .rating !=
-                                                              "0") ...[
-                                                            Icon(
-                                                              Icons.star,
-                                                              size: 15,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor,
-                                                            ),
-                                                            MyText(
-                                                              text: context
-                                                                  .read<
-                                                                      BookingBloc>()
-                                                                  .driverData!
-                                                                  .rating,
-                                                              textStyle: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodyMedium!
-                                                                  .copyWith(
-                                                                      // color: Theme.of(context).primaryColor,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500),
-                                                            ),
-                                                          ],
-                                                          const SizedBox(
-                                                              width: 5),
-                                                          if (context
-                                                                  .read<
-                                                                      BookingBloc>()
-                                                                  .driverData!
-                                                                  .completedRides !=
-                                                              0)
-                                                            Container(
-                                                              width: 1,
-                                                              height: 20,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .disabledColor
-                                                                  .withOpacity(
-                                                                      0.5),
-                                                            ),
-                                                          const SizedBox(
-                                                              width: 5),
-                                                          if (context
-                                                                  .read<
-                                                                      BookingBloc>()
-                                                                  .driverData!
-                                                                  .completedRides !=
-                                                              0)
-                                                            MyText(
-                                                              text:
-                                                                  '${context.read<BookingBloc>().driverData!.completedRides} trips done',
-                                                              textStyle: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodyMedium!
-                                                                  .copyWith(
-                                                                      // color: Theme.of(context).primaryColor,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500),
-                                                            ),
+                                                         if(context
+                                                                .read<
+                                                                    BookingBloc>()
+                                                                .driverData!
+                                                                .rating!="0")...[Icon(
+                                                            Icons.star,
+                                                            size: 15,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                          ),
+                                                          MyText(
+                                                            text: context
+                                                                .read<
+                                                                    BookingBloc>()
+                                                                .driverData!
+                                                                .rating,
+                                                            textStyle: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                                    // color: Theme.of(context).primaryColor,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                          ),],
+                                                          const SizedBox(width: 5),
+                                                          if(context.read<BookingBloc>().driverData!.completedRides != 0)
+                                                          Container(
+                                                            width: 1,
+                                                            height: 20,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .disabledColor
+                                                                .withOpacity(
+                                                                    0.5),
+                                                          ),
+                                                          const SizedBox( width: 5),
+                                                          if(context.read<BookingBloc>().driverData!.completedRides != 0)
+                                                          MyText(
+                                                            text:
+                                                                '${context.read<BookingBloc>().driverData!.completedRides} trips done',
+                                                            textStyle: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                                    // color: Theme.of(context).primaryColor,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                          ),
                                                         ],
                                                       ),
                                                     ],
@@ -632,9 +584,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                         width: size.width * 0.110,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Theme.of(context)
-                                                .disabledColor
-                                                .withOpacity(0.3),
+                                            color: Theme.of(context).disabledColor.withOpacity(0.3),
                                             border: Border.all(
                                                 width: 0.5,
                                                 color: Theme.of(context)
@@ -644,8 +594,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                         child: Icon(
                                           Icons.message,
                                           size: size.width * 0.05,
-                                          color: Theme.of(context)
-                                              .primaryColorDark,
+                                          color: Theme.of(context).primaryColorDark,
                                         ),
                                       ),
                                     ),
@@ -688,9 +637,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                     width: size.width * 0.110,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Theme.of(context)
-                                            .disabledColor
-                                            .withOpacity(0.3),
+                                        color: Theme.of(context).disabledColor.withOpacity(0.3),
                                         border: Border.all(
                                             width: 0.5,
                                             color: Theme.of(context)
@@ -717,9 +664,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                     width: size.width * 0.110,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Theme.of(context)
-                                            .disabledColor
-                                            .withOpacity(0.3),
+                                        color: Theme.of(context).disabledColor.withOpacity(0.3),
                                         border: Border.all(
                                             width: 0.5,
                                             color: Theme.of(context)
@@ -754,7 +699,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                     ),
                                     Expanded(
                                         child: MyText(
-                                            maxLines: 2,
+                                          maxLines: 2,
                                             text: context
                                                 .read<BookingBloc>()
                                                 .requestData!
@@ -762,24 +707,13 @@ class OnRideBottomSheet extends StatelessWidget {
                                   ],
                                 ),
                                 if (!context
-                                        .read<BookingBloc>()
-                                        .requestData!
-                                        .isRental &&
-                                    context
-                                        .read<BookingBloc>()
-                                        .requestData!
-                                        .requestStops
-                                        .data
-                                        .isNotEmpty) ...[
-                                  // Row(
-                                  //   children: [
-                                  //     Padding(
-                                  //       padding: EdgeInsets.only(
-                                  //           left: size.width * 0.025),
-                                  //       child: const VerticalDotDividerWidget(),
-                                  //     ),
-                                  //   ],
-                                  // ),
+                                    .read<BookingBloc>()
+                                    .requestData!.isRental && context
+                                    .read<BookingBloc>()
+                                    .requestData!
+                                    .requestStops
+                                    .data
+                                    .isNotEmpty) ...[
                                   ListView.separated(
                                     itemCount: context
                                         .read<BookingBloc>()
@@ -800,7 +734,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                           SizedBox(width: size.width * 0.02),
                                           Expanded(
                                               child: MyText(
-                                                  maxLines: 2,
+                                                maxLines: 2,
                                                   text: context
                                                       .read<BookingBloc>()
                                                       .requestData!
@@ -825,34 +759,24 @@ class OnRideBottomSheet extends StatelessWidget {
                                   ),
                                 ],
                                 if (!context
-                                        .read<BookingBloc>()
-                                        .requestData!
-                                        .isRental &&
-                                    context
-                                        .read<BookingBloc>()
-                                        .requestData!
-                                        .requestStops
-                                        .data
-                                        .isEmpty &&
-                                    context
-                                        .read<BookingBloc>()
-                                        .requestData!
-                                        .dropAddress
-                                        .isNotEmpty) ...[
-                                  // Padding(
-                                  //   padding: EdgeInsets.only(
-                                  //       left: size.width * 0.025),
-                                  //   child: const VerticalDotDividerWidget(),
-                                  // ),
+                                    .read<BookingBloc>()
+                                    .requestData!.isRental && context
+                                    .read<BookingBloc>()
+                                    .requestData!
+                                    .requestStops
+                                    .data
+                                    .isEmpty && context
+                                    .read<BookingBloc>()
+                                    .requestData!
+                                    .dropAddress.isNotEmpty) ...[
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       const DropIcon(),
                                       SizedBox(width: size.width * 0.02),
                                       Expanded(
                                           child: MyText(
-                                              maxLines: 2,
+                                            maxLines: 2,
                                               text: context
                                                   .read<BookingBloc>()
                                                   .requestData!
@@ -864,60 +788,43 @@ class OnRideBottomSheet extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: size.width * 0.02),
-                          if (context
-                                      .read<BookingBloc>()
-                                      .requestData!
-                                      .isPetAvailable ==
-                                  1 ||
-                              context
-                                      .read<BookingBloc>()
-                                      .requestData!
-                                      .isLuggageAvailable ==
-                                  1)
-                            Column(
-                              children: [
-                                SizedBox(height: size.width * 0.05),
-                                SizedBox(
-                                  width: size.width * 0.9,
-                                  child: Row(
-                                    children: [
-                                      MyText(
-                                          text: 'Preferences :- ',
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .primaryColorDark,
-                                                  fontWeight: FontWeight.w600)),
-                                      if (context
-                                              .read<BookingBloc>()
-                                              .requestData!
-                                              .isPetAvailable ==
-                                          1)
-                                        Icon(
-                                          Icons.pets,
-                                          size: size.width * 0.05,
-                                          color: Theme.of(context)
-                                              .primaryColorDark,
-                                        ),
-                                      if (context
-                                              .read<BookingBloc>()
-                                              .requestData!
-                                              .isLuggageAvailable ==
-                                          1)
-                                        Icon(
-                                          Icons.luggage,
-                                          size: size.width * 0.05,
-                                          color: Theme.of(context)
-                                              .primaryColorDark,
-                                        )
-                                    ],
-                                  ),
+                          if (context.read<BookingBloc>().requestData!.isPetAvailable == 1 ||
+                      context.read<BookingBloc>().requestData!.isLuggageAvailable == 1)
+                    Column(
+                      children: [
+                        SizedBox(height: size.width * 0.05),
+                        SizedBox(
+                          width: size.width * 0.9,
+                          child: Row(
+                            children: [
+                              MyText(text: 'Preferences :- ',
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          color:
+                                              Theme.of(context).primaryColorDark,fontWeight: FontWeight.w600)),
+                              if (context.read<BookingBloc>()
+                                                    .requestData!.isPetAvailable == 1)
+                                Icon(
+                                  Icons.pets,
+                                  size: size.width * 0.05,
+                                  color: Theme.of(context).primaryColorDark,
                                 ),
-                              ],
-                            ),
-                          SizedBox(height: size.width * 0.02),
+                              if (context.read<BookingBloc>()
+                                                    .requestData!.isLuggageAvailable ==
+                                  1)
+                                Icon(
+                                  Icons.luggage,
+                                  size: size.width * 0.05,
+                                  color: Theme.of(context).primaryColorDark,
+                                )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.width * 0.02),
                           Container(
                             margin: EdgeInsets.only(
                                 left: size.width * 0.05,
@@ -932,23 +839,18 @@ class OnRideBottomSheet extends StatelessWidget {
                                       SizedBox(
                                         width: size.width * 0.5,
                                         child: MyText(
-                                            text: context
+                                            text:context
                                                     .read<BookingBloc>()
-                                                    .requestData!
-                                                    .isRental
-                                                ? context
+                                                    .requestData!.isRental ?  context
                                                     .read<BookingBloc>()
-                                                    .requestData!
-                                                    .rentalPackageName
-                                                : AppLocalizations.of(context)!
-                                                    .rideFare,
-                                            maxLines: 2,
+                                                    .requestData!.rentalPackageName:AppLocalizations.of(context)!
+                                                .rideFare,
+                                            maxLines: 2,    
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium!
                                                 .copyWith(
-                                                    fontWeight:
-                                                        FontWeight.w600)),
+                                                    fontWeight: FontWeight.w600)),
                                       ),
                                       (context.read<BookingBloc>().requestData!.isBidRide ==
                                               1)
@@ -1033,6 +935,8 @@ class OnRideBottomSheet extends StatelessWidget {
                                     ),
                                   ],
                                 )
+
+                                
                               ],
                             ),
                           ),
@@ -1114,9 +1018,6 @@ class OnRideBottomSheet extends StatelessWidget {
                               0)
                             InkWell(
                               onTap: () {
-                                // if (!context
-                                //     .read<BookingBloc>()
-                                //     .cancelReasonClicked) {
                                 context
                                     .read<BookingBloc>()
                                     .selectedCancelReason = '';
@@ -1129,7 +1030,6 @@ class OnRideBottomSheet extends StatelessWidget {
                                                 0)
                                             ? 'before'
                                             : 'after'));
-                                // }
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -1173,7 +1073,7 @@ class OnRideBottomSheet extends StatelessWidget {
   Widget paymentGatewaysList(BuildContext cont, Size size,
       List<PaymentGatewayData> walletPaymentGatways) {
     return BlocProvider(
-      create: (context) =>
+      create: (context) => 
           AccBloc()..add(GetWalletHistoryListEvent(pageIndex: 1)),
       child: BlocBuilder<AccBloc, AccState>(builder: (context, state) {
         return walletPaymentGatways.isNotEmpty
@@ -1208,8 +1108,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                           border: Border.all(
                                               width: 0.5,
                                               color: Theme.of(context)
-                                                  .primaryColorDark
-                                                  .withOpacity(0.5))),
+                                                  .primaryColorDark.withOpacity(0.5))),
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -1230,10 +1129,7 @@ class OnRideBottomSheet extends StatelessWidget {
                                                         .copyWith(
                                                             color: Theme.of(
                                                                     context)
-                                                                .primaryColorDark,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
+                                                                .primaryColorDark,fontWeight: FontWeight.w600)),
                                               ],
                                             ),
                                           ),

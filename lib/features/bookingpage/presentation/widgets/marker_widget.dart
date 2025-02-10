@@ -18,19 +18,12 @@ class MarkerWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         (isPickup)
-            ? Image.asset(
-                AppImages.pickPin,
-                height: 30,
-                width: 30,
-              )
+            ? Image.asset(AppImages.pickPin,height: 30, width: 30,)
             : Stack(
                 alignment: Alignment.center,
+
                 children: [
-                  Image.asset(
-                    AppImages.dropPin,
-                    height: 30,
-                    width: 30,
-                  ),
+                  Image.asset(AppImages.dropPin,height: 30, width: 30,),
                   if (count != null)
                     Container(
                       height: 15,

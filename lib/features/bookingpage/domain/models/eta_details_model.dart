@@ -156,7 +156,7 @@ class EtaDetails {
         hasDiscount: json["has_discount"] ?? false,
         discountAmount: json["discount_amount"].toDouble() ?? 0.0,
         distance: json["distance"].toString(),
-        calculatedDistance: json["calculated_distance"].toString(),
+        calculatedDistance : json["calculated_distance"].toString(),
         distanceInMeters: json["distance_in_meters"].toString(),
         time: json["time"] ?? 0,
         baseDistance: json["base_distance"] ?? 0,
@@ -191,7 +191,7 @@ class EtaDetails {
         freeWaitingTimeInMinsBeforeTripStart:
             json["free_waiting_time_in_mins_before_trip_start"] ?? 0,
         waitingCharge: json["waiting_charge"] ?? 0,
-        promocodeId: json["promocode_id"] ?? '',
+        promocodeId: json["promocode_id"] ??'',
       );
 }
 

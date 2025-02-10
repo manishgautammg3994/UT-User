@@ -137,14 +137,8 @@ class _VerifyPageState extends State<VerifyPage>
                                     MediaQuery.of(context).size.width * 0.1),
                             context.read<AuthBloc>().isOtpVerify
                                 ? MyText(
-                                    // text: AppLocalizations.of(context)!
-                                    //     .otpSendContent,
-                                    text: widget.arg.isLoginByEmail
-                                        ? AppLocalizations.of(context)!
-                                            .otpSendContent
-                                        : AppLocalizations.of(context)!
-                                            .testOtp
-                                            .replaceAll('***', '123456'),
+                                    text: AppLocalizations.of(context)!
+                                        .otpSendContent,
                                     textAlign: TextAlign.center,
                                     textStyle: Theme.of(context)
                                         .textTheme
@@ -163,6 +157,7 @@ class _VerifyPageState extends State<VerifyPage>
                                         .copyWith(
                                           color: AppColors.greyHintColor,
                                         ),
+                                    maxLines: 2,
                                   ),
                             const SizedBox(height: 20),
                             Wrap(
@@ -187,10 +182,6 @@ class _VerifyPageState extends State<VerifyPage>
                                           child: Text(""),
                                         ),
                                       ),
-                                      // child: Image.network(
-                                      //   widget.arg.countryFlag,
-                                      //   fit: BoxFit.fill,
-                                      // ),
                                     ),
                                   ),
                                 const SizedBox(width: 10),
@@ -253,8 +244,8 @@ class _VerifyPageState extends State<VerifyPage>
             MyText(
               text: AppLocalizations.of(context)!.password,
               textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: AppColors.black,
-                  ),
+                  color: AppColors.black,
+                  fontSize: AppConstants().subHeaderSize),
             ),
             InkWell(
               onTap: () {
@@ -318,10 +309,9 @@ class _VerifyPageState extends State<VerifyPage>
           },
           child: MyText(
             text: '${AppLocalizations.of(context)!.forgetPassword} ?',
-            textStyle: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: AppColors.greyHintColor),
+            textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: AppColors.greyHintColor,
+                fontSize: AppConstants().subHeaderSize),
           ),
         ),
       ],
@@ -338,8 +328,8 @@ class _VerifyPageState extends State<VerifyPage>
             MyText(
               text: AppLocalizations.of(context)!.enterOtp,
               textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: AppColors.black,
-                  ),
+                  color: AppColors.black,
+                  fontSize: AppConstants().subHeaderSize),
             ),
             if (widget.arg.userExist &&
                 context.read<AuthBloc>().timerDuration == 0)

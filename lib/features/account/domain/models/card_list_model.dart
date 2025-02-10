@@ -19,8 +19,7 @@ class CardListModel {
   factory CardListModel.fromJson(Map<String, dynamic> json) => CardListModel(
         success: json["success"],
         message: json["message"],
-        data: List<SavedCardDetails>.from(
-            json["data"].map((x) => SavedCardDetails.fromJson(x))),
+        data: List<SavedCardDetails>.from(json["data"].map((x) => SavedCardDetails.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,21 +60,20 @@ class SavedCardDetails {
     required this.deletedAt,
   });
 
-  factory SavedCardDetails.fromJson(Map<String, dynamic> json) =>
-      SavedCardDetails(
-        id: json["id"] ?? '',
-        customerId: json["customer_id"] ?? '',
-        merchantId: json["merchant_id"] ?? '',
-        cardToken: json["card_token"] ?? '',
-        validThrough: json["valid_through"] ?? '',
-        lastNumber: json["last_number"] ?? 0000,
-        cardType: json["card_type"] ?? '',
-        userId: json["user_id"] ?? 0,
-        isDefault: json["is_default"] ?? 0,
-        userRole: json["user_role"] ?? '',
-        createdAt: json["created_at"] ?? '',
-        updatedAt: json["updated_at"] ?? '',
-        deletedAt: json["deleted_at"] ?? '',
+  factory SavedCardDetails.fromJson(Map<String, dynamic> json) => SavedCardDetails(
+        id: json["id"]??'',
+        customerId: json["customer_id"]??'',
+        merchantId: json["merchant_id"]??'',
+        cardToken: json["card_token"]??'',
+        validThrough: json["valid_through"]??'',
+        lastNumber: json["last_number"]??0000,
+        cardType: json["card_type"]??'',
+        userId: json["user_id"]??0,
+        isDefault: json["is_default"]??0,
+        userRole: json["user_role"]??'',
+        createdAt: json["created_at"]??'',
+        updatedAt: json["updated_at"]??'',
+        deletedAt: json["deleted_at"]??'',
       );
 
   Map<String, dynamic> toJson() => {

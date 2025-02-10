@@ -152,7 +152,7 @@ class AuthPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+                children: [                  
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(
@@ -170,10 +170,7 @@ class AuthPage extends StatelessWidget {
                     child: Row(
                       children: [
                         MyText(
-                            text: context
-                                .read<AuthBloc>()
-                                .languageCode
-                                .toUpperCase(),
+                            text: context.read<AuthBloc>().languageCode.toUpperCase(),
                             textStyle: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -249,7 +246,8 @@ class AuthPage extends StatelessWidget {
                           textStyle: Theme.of(context)
                               .textTheme
                               .bodySmall!
-                              .copyWith(fontWeight: FontWeight.bold),
+                              .copyWith(
+                                  fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],

@@ -74,8 +74,9 @@ class ForgotPasswordPage extends StatelessWidget {
                                         .textTheme
                                         .displayMedium!
                                         .copyWith(
-                                          color: AppColors.black,
-                                        ),
+                                            color: AppColors.black,
+                                            fontSize:
+                                                AppConstants().headerSize),
                                   ),
                                 ),
                                 SizedBox(height: size.width * 0.1),
@@ -89,6 +90,7 @@ class ForgotPasswordPage extends StatelessWidget {
                                       .copyWith(
                                         color: Theme.of(context).disabledColor,
                                       ),
+                                  maxLines: 2,
                                 ),
                                 SizedBox(height: size.width * 0.05),
                                 Center(
@@ -117,10 +119,6 @@ class ForgotPasswordPage extends StatelessWidget {
                                                 child: Text(""),
                                               ),
                                             ),
-                                            // child: Image.network(
-                                            //   arg.countryFlag,
-                                            //   fit: BoxFit.fill,
-                                            // ),
                                           ),
                                         ),
                                       const SizedBox(width: 10),
@@ -182,7 +180,10 @@ class ForgotPasswordPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyText(text: AppLocalizations.of(context)!.enterOtp),
+        MyText(
+          text: AppLocalizations.of(context)!.enterOtp,
+          textStyle: TextStyle(fontSize: AppConstants().subHeaderSize),
+        ),
         const SizedBox(height: 10),
         PinCodeTextField(
           appContext: context,
@@ -247,10 +248,10 @@ class ForgotPasswordPage extends StatelessWidget {
                 ? '${AppLocalizations.of(context)!.resendOtp} 00:${context.read<AuthBloc>().timerDuration}'
                 : AppLocalizations.of(context)!.resendOtp,
             textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: context.read<AuthBloc>().timerDuration != 0
-                      ? Theme.of(context).disabledColor
-                      : AppColors.black,
-                ),
+                color: context.read<AuthBloc>().timerDuration != 0
+                    ? Theme.of(context).disabledColor
+                    : AppColors.black,
+                fontSize: AppConstants().subHeaderSize),
           ),
         ),
       ],

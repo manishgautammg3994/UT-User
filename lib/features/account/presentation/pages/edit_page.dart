@@ -28,8 +28,7 @@ class EditPage extends StatelessWidget {
           if (state is UserProfileDetailsLoadingState) {
             CustomLoader.loader(context);
           } else if (state is UpdateUserDetailsFailureState) {
-            context.showSnackBar(
-                message: AppLocalizations.of(context)!.failedUpdateDetails);
+            context.showSnackBar(message: AppLocalizations.of(context)!.failedUpdateDetails);
           } else if (state is UserDetailsUpdatedState) {
             context.read<AccBloc>().userData!.name = state.name;
             context.read<AccBloc>().userData!.email = state.email;
@@ -100,8 +99,8 @@ class EditPage extends StatelessWidget {
                                         .textTheme
                                         .titleMedium!
                                         .copyWith(
-                                            color: Theme.of(context)
-                                                .primaryColorDark),
+                                            color:
+                                                Theme.of(context).primaryColorDark,fontSize: 20),
                                   ),
                                   const SizedBox(height: 10),
                                   EditOptions(
@@ -173,6 +172,7 @@ class EditPage extends StatelessWidget {
                           ),
                         ),
                       ),
+                        
                     ),
                   )
                 : const Scaffold(

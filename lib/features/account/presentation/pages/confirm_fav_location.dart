@@ -21,9 +21,7 @@ class ConfirmFavLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return BlocProvider(
-      create: (context) => AccBloc()
-        ..add(AccGetDirectionEvent())
-        ..add(FavNewAddressInitEvent(arg: arg)),
+      create: (context) => AccBloc()..add(AccGetDirectionEvent())..add(FavNewAddressInitEvent(arg: arg)),
       child: BlocListener<AccBloc, AccState>(
         listener: (context, state) {},
         child: BlocBuilder<AccBloc, AccState>(builder: (context, state) {
@@ -53,8 +51,7 @@ class ConfirmFavLocation extends StatelessWidget {
                                 SizedBox(width: size.width * 0.05),
                                 Expanded(
                                   child: MyText(
-                                      text: AppLocalizations.of(context)!
-                                          .newaddress,
+                                      text: AppLocalizations.of(context)!.newaddress,
                                       textStyle: Theme.of(context)
                                           .textTheme
                                           .bodyLarge),
@@ -87,7 +84,8 @@ class ConfirmFavLocation extends StatelessWidget {
                                                               .favNewAddress!
                                                               .lng),
                                                       transportType: '',
-                                                      mapType: context
+                                                      mapType:
+                                                         context
                                                           .read<AccBloc>()
                                                           .userData!
                                                           .mapType))
@@ -251,9 +249,7 @@ class ConfirmFavLocation extends StatelessWidget {
                                                           .disabledColor
                                                           .withOpacity(0.25)),
                                                   child: MyText(
-                                                    text: AppLocalizations.of(
-                                                            context)!
-                                                        .edit,
+                                                    text: AppLocalizations.of(context)!.edit,
                                                     textStyle: Theme.of(context)
                                                         .textTheme
                                                         .bodySmall,
@@ -274,8 +270,7 @@ class ConfirmFavLocation extends StatelessWidget {
                                         .read<AccBloc>()
                                         .newAddressController,
                                     autofocus: true,
-                                    hintText:
-                                        AppLocalizations.of(context)!.name,
+                                    hintText: AppLocalizations.of(context)!.name,
                                   ),
                                 ],
                               ),
@@ -312,8 +307,8 @@ class ConfirmFavLocation extends StatelessWidget {
                                     Navigator.pop(context);
                                   } else {
                                     showToast(
-                                        message: AppLocalizations.of(context)!
-                                            .enterTheCredentials);
+                                        message:
+                                            AppLocalizations.of(context)!.enterTheCredentials);
                                   }
                                 })
                           ],

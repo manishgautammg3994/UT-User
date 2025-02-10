@@ -203,7 +203,9 @@ class WalletHistoryPage extends StatelessWidget {
                                         textStyle: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
-                                            .copyWith(color: Colors.white)),
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontSize: 18)),
                                     // if (context.read<AccBloc>().walletResponse != null)
                                     if (context.read<AccBloc>().isLoading &&
                                         !context.read<AccBloc>().loadMore)
@@ -370,7 +372,8 @@ class WalletHistoryPage extends StatelessWidget {
                                         .bodySmall!
                                         .copyWith(
                                             color: Theme.of(context)
-                                                .primaryColorDark)),
+                                                .primaryColorDark,
+                                            fontSize: 16)),
                                 SizedBox(
                                   width: size.width * 0.02,
                                 ),
@@ -426,7 +429,7 @@ class WalletHistoryPage extends StatelessWidget {
                                           .bodySmall!
                                           .copyWith(
                                               color: Theme.of(context)
-                                                  .primaryColorDark)),
+                                                  .primaryColorDark,fontSize: 16)),
                                   SizedBox(
                                     width: size.width * 0.02,
                                   ),
@@ -593,16 +596,15 @@ class WalletHistoryPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   MyText(
                     text: AppLocalizations.of(context)!.paymenyHistoryEmpty,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: Theme.of(context).disabledColor),
+                    textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Theme.of(context).disabledColor, fontSize: 18),
                   ),
                   MyText(
                     text: AppLocalizations.of(context)!.paymenyHistoryEmptyText,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
                     textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).disabledColor,
-                        ),
+                        color: Theme.of(context).disabledColor, fontSize: 16),
                   ),
                 ],
               ),
@@ -1027,7 +1029,8 @@ class WalletHistoryPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(6)),
                       alignment: Alignment.center,
                       child: MyText(
-                        text: AppLocalizations.of(context)!.transferMoney,
+                        text:
+                            AppLocalizations.of(context)!.transferMoney,
                         textStyle: Theme.of(context)
                             .textTheme
                             .bodyLarge!

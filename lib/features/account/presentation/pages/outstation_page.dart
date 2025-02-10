@@ -88,7 +88,7 @@ class OutstationHistoryPage extends StatelessWidget {
                                         .bodyMedium!
                                         .copyWith(
                                             color: Theme.of(context)
-                                                .disabledColor),
+                                                .disabledColor,fontSize: 18),
                                   ),
                                   MyText(
                                     text: AppLocalizations.of(context)!
@@ -98,7 +98,7 @@ class OutstationHistoryPage extends StatelessWidget {
                                         .bodyMedium!
                                         .copyWith(
                                           color:
-                                              Theme.of(context).disabledColor,
+                                              Theme.of(context).disabledColor,fontSize: 16
                                         ),
                                   ),
                                 ],

@@ -1,3 +1,4 @@
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -508,7 +509,7 @@ class AccRepositoryImpl implements AccRepository {
     PaymentAuthModel paymentAuthenticationResponse;
     try {
       Response response = await _accApi.stripeSetupIntent();
-
+      
       if (response.data == null || response.data == '') {
         return Left(GetDataFailure(message: 'User bad request'));
       } else if (response.data.toString().contains('error')) {
@@ -531,7 +532,7 @@ class AccRepositoryImpl implements AccRepository {
 
   @override
   Future<Either<Failure, dynamic>> stripeSaveCardDetails({
-    required String paymentMethodId,
+     required String paymentMethodId,
     required String last4Number,
     required String cardType,
     required String validThrough,
@@ -585,8 +586,7 @@ class AccRepositoryImpl implements AccRepository {
   }
 
   @override
-  Future<Either<Failure, dynamic>> makeDefaultCard(
-      {required String cardId}) async {
+  Future<Either<Failure, dynamic>> makeDefaultCard({required String cardId}) async {
     dynamic makeDefaultResponse;
     try {
       Response response = await _accApi.makeDefaultCard(cardId: cardId);
@@ -611,7 +611,8 @@ class AccRepositoryImpl implements AccRepository {
   }
 
   @override
-  Future<Either<Failure, dynamic>> deleteCard({required String cardId}) async {
+  Future<Either<Failure, dynamic>> deleteCard(
+      {required String cardId}) async {
     dynamic deleteCardResponse;
     try {
       Response response = await _accApi.deleteCard(cardId: cardId);

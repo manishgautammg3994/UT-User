@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+
 // Shimmer
 class SosShimmerLoading extends StatelessWidget {
   final Size size;

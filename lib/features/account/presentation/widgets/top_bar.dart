@@ -144,6 +144,7 @@ class TopBarDesign extends StatelessWidget {
                                 .textTheme
                                 .titleLarge!
                                 .copyWith(
+                                  fontSize: 20,
                                   // color: Theme.of(context).primaryColorLight,
                                   color: AppColors.whiteText,
                                 ),
