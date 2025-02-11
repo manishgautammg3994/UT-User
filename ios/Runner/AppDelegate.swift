@@ -10,7 +10,7 @@ import Firebase
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     FirebaseApp.configure()
-    GMSServices.provideAPIKey("your ios map key")
+    GMSServices.provideAPIKey("AIzaSyAoi9wM6k_nXs7W6-5CLv3MuoEDuWoiRcA")
     GeneratedPluginRegistrant.register(with: self)
 
     if #available(iOS 10.0, *) {

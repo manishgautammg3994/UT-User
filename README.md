@@ -1,3 +1,19 @@
+# TODOS:
+* Payment Related Setup
+* Notification Related Stuff
+
+# Still Not future Ready Code 
+* <= New Idea => <br>
+As Dart has New Pub workspaces feature <br>
+MaKe the Code Modular As Shown [Here](https://hireflutter.blogspot.com/2024/12/modular-flutter-project-with-dart-pub-workspaces-monorepo-feature.html)
+# Contact Us
+
+If you have any questions or need further assistance, please feel free to contact us:
+[Contact Us](https://hireflutter.blogspot.com/#contact)
+
+
+We are here to help you!
+
 # restart_tagxi
 
 A new Flutter project.
@@ -17,5 +33,7 @@ samples, guidance on mobile development, and a full API reference.
 
 // TODO:
 Merge Translations so that it adds serviceNotAvailable
-// Merge New l10n in Old
+//
+<br>
+Merge New l10n in Old [Done] <br>
 3 left => account -> auth -> bookingpage

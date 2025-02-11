@@ -30,6 +30,7 @@ jobs:
 
     - name: "Build Flutter APK Project"
       run: |
+        flutter gen-l10n
         dart run build_runner build --delete-conflicting-outputs
         flutter build  apk -t lib/env/main_dev.dart --release
 

@@ -68,8 +68,8 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
-              <!-- TODO: Change that with ride_channel_1 -->
-            <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="1" />  
+              <!-- TODO: Change that with ride_channel_1 <= [Done] -->
+            <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="ride_channel_1" />  
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
